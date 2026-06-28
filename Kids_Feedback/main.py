@@ -13,4 +13,8 @@ app.include_router(children_router)
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
-   
+
+
+@app.get("/")
+def root():
+    return {"message": "Kids Feedback API is running"}
