@@ -21,7 +21,7 @@ class Child(Base):
     caution_note = Column(Text, nullable=True)
     material_note = Column(Text, nullable=True)
     teacher_memo = Column(Text, nullable=True)
-
+    lesson_records = relationship("LessonRecord", back_populates="child")
 
 
 

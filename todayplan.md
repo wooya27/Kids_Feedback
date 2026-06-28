@@ -13,15 +13,15 @@
 
 ## 세션 2 (25분) — Day 2 마무리 ②
 - [x] `PATCH /children/{id}` 완성 + Swagger 테스트
-- [ ] `Child` 모델에 `lesson_records` relationship 추가 (models.py)
+- [x] `Child` 모델에 `lesson_records` relationship 추가 (models.py)
 
 `🔴 7분 휴식`
 
 ---
 
 ## 세션 3 (25분) — Day 3 마무리 ①
-- [ ] `lesson_records_router.py` 생성
-- [ ] `POST /lesson-records` 구현
+- [x] `lesson_records_router.py` 생성
+- [x] `POST /lesson-records` 구현
 
 `🔴 7분 휴식`
 
