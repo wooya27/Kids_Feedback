@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from database import engine, Base
 from models import Child
-from children_router import router as children_router
+from routers.children_router import router as children_router
 
 Base.metadata.create_all(bind=engine)
 
