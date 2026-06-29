@@ -51,15 +51,27 @@
 
 ---
 
-## 세션 3 (30분) — Day 4 ①
-- [ ] `prompt_service.py` 작성 (프롬프트 조립 함수)
+## 세션 3 (30분) — Day 4 ① ✅ 완료
+- [x] `prompt_service.py` 작성 — 프로필 f-string + 기록 리스트 for 반복문으로 조립
 
 `🔴 7분 휴식`
 
 ---
 
-## 세션 4 (30분) — Day 4 ②
-- [ ] `llm_service.py` 작성 (Claude API 호출)
+## 세션 4 (30분) — Day 4 ②  ◀ 여기서 중단 (내일 이어서)
+- [x] SDK 설치 완료 (`google-genai`, `python-dotenv`)
+- [x] `.env` 파일 생성 + `.gitignore`에 추가 (키 숨길 자리 준비됨)
+- [ ] 🔑 **다음 첫 행동:** Google AI Studio(`aistudio.google.com`)에서 API 키 발급 → `Kids_Feedback/.env`의 `GEMINI_API_KEY=` 뒤에 붙여넣기
+- [ ] `llm_service.py`에 `generate_feedback(prompt)` 함수 작성
+  - 구조: `client.models.generate_content(model="gemini-2.0-flash", contents=prompt)` → `response.text` → `return`
+- [ ] 실행 테스트: prompt_service의 프롬프트 → Gemini → 피드백 글 나오는지
+
+**[다시 시작 문장]**
+- "API 키 발급해서 .env에 넣고, llm_service.py에 Gemini 호출 함수 쓴다."
+
+**[참고]**
+- 개념 정리는 `study/day4.md`에 있음 (API/키, 호출 3단계)
+- prompt_service.py는 완성됨 — `build_prompt(child, records)` 호출하면 프롬프트 나옴
 
 `🔴 10분 휴식`
 

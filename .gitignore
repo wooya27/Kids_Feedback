@@ -8,3 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Secrets (API keys 등) — 절대 깃에 올리지 않음
+.env
