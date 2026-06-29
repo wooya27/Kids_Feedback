@@ -47,10 +47,10 @@ README에 왜 이 프로젝트를 만드는지 적혀 있다.
 [ ] caution_note 필드 추가
 [ ] material_note 필드 추가
 [ ] teacher_memo 필드 추가
-[ ] POST /children 구현
-[ ] GET /children 구현
-[ ] GET /children/{id} 구현
-[ ] PATCH /children/{id} 구현
+[ ] POST /children 구현 # 전체 아이정보 넣기
+[ ] GET /children 구현  # 전체 아이정보 조회  (학원아이들 명단표 쫙)
+[ ] GET /children/{id} 구현 # 특정 아이정보 조회
+[ ] PATCH /children/{id} 구현 # 특정 아이정보 수정
 ```
 
 완료 기준:

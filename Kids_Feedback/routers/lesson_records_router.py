@@ -1,8 +1,8 @@
 ## 데이터를 받아 실제로 처리하는곳
 
 from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-
+from sqlalchemy.orm import Session 
+from sqlalchemy import desc
 from database import get_db
 from models import LessonRecord
 from schemas import LessonRecordCreate, LessonRecordResponse
@@ -35,9 +35,21 @@ def create_LessonRecord(record: LessonRecordCreate, db: Session = Depends(get_db
 
     return new_LessonRecord
 
-
+#db.query(LessonRecord) 뒤에 메서드를 체이닝(이어붙이기) 하는 방식이야. 점(.)으로 계속 연결해.
 @router.get("/", response_model=list[LessonRecordResponse]) #조회
 def get_LessonRecordren(db: Session = Depends(get_db)):
-    Children = db.query(LessonRecord).all() #조회 부분
+    Children = db.query(LessonRecord).all() # 전체 조회 부분
     return Children
+
+
+
+# .filter() — 조건으로 거르기 (어느 아이?) db.query(LessonRecord).filter(LessonRecord.child_id ==3).all()
+  # child_id가 3인 기록만
+  
+@router.get("/{child_id}/leasson-records") #조회
+def get_lesson_records(child_id: int, db: Session = Depends(get_db)):
+    Children = db.query(LessonRecord).filter(LessonRecord.child_id == child_id).order_by(desc(LessonRecord.lesson_date)).limit(5).all() #조회 부분
+    return Children
+
+
 

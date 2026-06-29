@@ -40,7 +40,7 @@ def create_child(child: ChildCreate, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=list[ChildResponse]) #조회
 def get_children(db: Session = Depends(get_db)):
-    children = db.query(Child).all() #조회 부분
+    children = db.query(Child).all() #전체 조회 부분
     return children
 
 
