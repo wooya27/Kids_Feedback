@@ -39,7 +39,7 @@ class ChildResponse(ChildCreate):
     created_at: Optional[datetime] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class LessonRecordCreate(BaseModel):
@@ -57,7 +57,7 @@ class LessonRecordResponse(LessonRecordCreate):
     created_at: Optional[datetime] = None
 
     class Config:
-        orm_mode = True
-        
+        from_attributes = True
+
 #ChildCreate = 사용자가 POST로 보내는 데이터
 #ChildResponse = 서버가 응답으로 돌려주는 데이터

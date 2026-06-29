@@ -4,7 +4,23 @@
 @.claude/sjy_st.md
 
 ## 25~30분 작업 / 7~10분 휴식
-## 🎯 오늘 진짜 목표: Day 4까지 / Day 5~6은 여력 보너스
+
+---
+
+## 📅 토요일(7/4) 마감 로드맵 — 하루 2 day치 (≈3시간)
+> 선택: 전부 다(풀스코프). 하루 약 6세션. 🔴 표시는 막힐 위험 큰 날.
+
+| 날짜 | 할 일 | 비고 |
+|------|------|------|
+| **월 6/29 (오늘)** | Day 4 — LLM 연결 | ▶ 아래 세션 참고 |
+| **화 6/30** | Day 5 (피드백 API·저장) + Day 6 (통합테스트) | |
+| **수 7/1** | Day 7 (1주차 README) + Day 8 (RAG 문서 5개) | 가벼움 |
+| **목 7/2** | 🔴 Day 9 (임베딩·검색) + Day 10 (RAG 통합) | 가장 어려움 |
+| **금 7/3** | 🔴 Day 11 (Streamlit 화면1) + Day 12 (화면2) | |
+| **토 7/4** | Day 13 (그래프·데모) + Day 14 (최종 문서) | |
+
+**원칙:** 풀스코프 — Day 14까지 전부 한다. 아무것도 빼지 않음.
+**막히면:** 한 작업에서 15분 넘게 에러로 막히면 혼자 끙끙대지 말고 바로 질문 → 빨리 풀고 다음으로.
 
 ---
 
@@ -15,27 +31,19 @@
 
 ---
 
-## 세션 2 (25분) — Day 3 마무리 ②  ◀ 여기서 중단 (버그 발견)
+## 세션 2 (25분) — Day 3 마무리 ② ✅ 완료
 - [x] `main.py`에 lesson_records 라우터 등록
-- [ ] 🐞 **버그 수정 먼저!** `schemas.py` 42번·60번 줄 `orm_mode = True` → `from_attributes = True` (2군데)
-  - 이유: Pydantic v2에선 `orm_mode`가 `from_attributes`로 이름 바뀜. 옛 이름이라 무시돼서 POST/GET이 500 에러.
-  - 고친 뒤 서버는 `--reload`라 자동 재시작됨.
-- [ ] 테스트 데이터 입력: 먼저 아이 2~3명(`POST /children/`) → 그 아이로 수업기록 5개(`POST /lesson/`, child_id 동일, lesson_date만 다르게)
-- [ ] `GET /lesson/{child_id}/lesson-records`로 최신순 5개 나오는지 확인
-- 끝나면 보여야 할 결과: 기록 5개가 최신 날짜 먼저 JSON으로 나옴
+- [x] 🐞 `schemas.py` `orm_mode = True` → `from_attributes = True` (2군데, Pydantic v2)
+- [x] 🐞 DB 스키마 불일치 → `drop_all + create_all`로 테이블 재생성 (memory_hint 등 새 컬럼 반영)
+- [x] 🐞 라우터 경로 오타 `leasson-records` → `lesson-records`
+- [x] 테스트 데이터: 아이 5명 등록 + child_id=1로 수업기록 5개 입력
+- [x] `GET /lesson/1/lesson-records` → 최신순 5개 확인
 
 `🔴 7분 휴식`
 
 ---
 
-## ⏸️ 작업 중단 메모 (2026-06-29)
-
-**[다음 첫 행동]**
-- 서버 켜기: `Kids_Feedback/Kids_Feedback` 폴더에서 `uvicorn main:app --reload`
-- `schemas.py` 열어서 `orm_mode` 2군데를 `from_attributes`로 고치기
-
-**[다시 시작 문장]**
-- "schemas.py의 orm_mode를 from_attributes로 바꾸고, Swagger에서 아이 등록부터 다시 한다."
+## ✅ Day 3 마무리 완료 (2026-06-29) — 버그 3개 해결
 
 **[참고]**
 - 전체 코드 흐름이 헷갈리면 `study/00_전체흐름.md` 먼저 읽기

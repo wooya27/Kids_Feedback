@@ -1,13 +1,11 @@
-# Day 3 학습 정리 — 2026-06-28 시작 / 2026-06-29 이어서 (진행 중)
+# Day 3 학습 정리 — 2026-06-28 시작 / 2026-06-29 완료 ✅
 
-## 오늘 한 것 (현재까지)
+## 한 것
 - `Child` 모델에 `lesson_records` relationship 추가
 - `lesson_records_router.py` 생성 및 `POST /lesson-records` 구현
 - `GET /lesson/{child_id}/lesson-records` 구현 — 특정 아이의 최근 수업기록 5개 조회 (filter + order_by + limit)
-
-## 남은 것
 - `main.py`에 lesson_records 라우터 등록
-- 테스트 데이터 5개 입력 후 Swagger로 결과 확인
+- 🐞 **버그 3개 잡고** 테스트 데이터로 동작 확인 (아래 디버깅 섹션 참고)
 
 ---
 
@@ -160,3 +158,49 @@ def get_lesson_records(child_id: int, db: Session = Depends(get_db)):
 - 내가 했던 실수: `Child.id`(다른 테이블) → `child_id == child_id`(값끼리 비교, 항상 참) → 정답 `LessonRecord.child_id == child_id`
 
 **참고:** 이 라우터는 `prefix="/lesson"`이라 실제 주소는 `/lesson/{child_id}/lesson-records`가 된다.
+
+---
+
+## 🐞 디버깅 3종 세트 (2026-06-29) — 오늘의 핵심
+
+**에러 났을 때 원칙: Swagger 화면 말고, 서버 터미널의 빨간 Traceback 맨 아랫줄을 읽어라.** 거기에 답이 있다.
+
+### 버그 1 — 500: `orm_mode` (Pydantic v1 → v2 이름 변경)
+- **증상:** POST/GET 시 500 Internal Server Error
+- **원인:** `schemas.py`의 `class Config: orm_mode = True`. Pydantic이 v1→v2 되면서 이 스위치 이름이 `from_attributes`로 바뀜. 옛 이름은 그냥 무시돼서 DB 객체 → JSON 변환이 안 됨.
+- **이 스위치가 하는 일:** DB에서 꺼낸 객체(SQLAlchemy 모델)의 속성(`.id`, `.name`)을 읽어서 응답 JSON을 만들어도 된다고 허락.
+- **해결:** `orm_mode = True` → `from_attributes = True` (2군데)
+
+### 버그 2 — 500: `UndefinedColumn` (DB 스키마 불일치)
+- **증상:** `psycopg2.errors.UndefinedColumn: "memory_hint" 칼럼은 "children" 릴레이션에 없음`
+- **원인:** `models.py`엔 `memory_hint` 등 새 칸을 추가했지만, **실제 Postgres 테이블은 그 칸이 추가되기 전 옛날 버전 그대로.**
+- **왜 자동으로 안 생기나:** `Base.metadata.create_all()`은 **"없는 테이블만 새로"** 만들 뿐, **이미 있는 테이블에 칸을 덧붙이지 않는다.** → 모델만 바뀌고 DB는 옛날 그대로 = 스키마 불일치.
+- **해결 (연습 데이터라 가능):** `drop_all()`로 테이블 싹 지우고 → `create_all()`로 다시 생성. 새 칸 포함해서 재생성됨.
+  ```python
+  from database import engine, Base
+  import models
+  Base.metadata.drop_all(bind=engine)    # 기존 테이블 + 데이터 전부 삭제
+  Base.metadata.create_all(bind=engine)  # 모델대로 새로 생성
+  ```
+- **실무에선:** 데이터를 지키면서 칸만 추가하는 **마이그레이션 도구(Alembic)**를 쓴다. (나중에 배움)
+
+### 버그 3 — 404/안 보임: 라우터 경로 오타
+- **증상:** `GET /lesson/{id}/lesson-records`가 Swagger에 안 보임
+- **원인:** 경로 문자열 오타 `"/{child_id}/leasson-records"` (leasson)
+- **해결:** `leasson` → `lesson`. URL 경로는 문자 하나만 틀려도 다른 주소가 된다.
+
+---
+
+## 📌 id vs child_id (기본키 / 외래키) — 2026-06-29
+
+- **`id`** = 그 표(테이블)에서 **자기 자신의 고유 번호.** 모든 테이블에 있음 → **기본키(primary key)**
+- **`child_id`** = "이 기록이 **어느 아이 거냐**"를 가리키려고 children의 `id`를 베껴 적은 칸 → **외래키(foreign key)**
+
+```
+children 표               lesson_records 표
+| id | name |             | id | child_id | lesson_date |
+|  1 | 유리 |  ◀───────── |  1 |    1     |    6/25     |
+                          |  2 |    1     |    6/26     |
+```
+- `GET /lesson/1/lesson-records` = "**child_id가 1인** 수업기록 다 줘" → 유리(1번)의 기록 5개
+- 다른 아이(child_id 2~5)는 기록을 안 넣었으면 빈 리스트 `[]` (에러 아님, "기록 없음")

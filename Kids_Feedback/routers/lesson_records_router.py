@@ -46,7 +46,7 @@ def get_LessonRecordren(db: Session = Depends(get_db)):
 # .filter() — 조건으로 거르기 (어느 아이?) db.query(LessonRecord).filter(LessonRecord.child_id ==3).all()
   # child_id가 3인 기록만
   
-@router.get("/{child_id}/leasson-records") #조회
+@router.get("/{child_id}/lesson-records") #조회
 def get_lesson_records(child_id: int, db: Session = Depends(get_db)):
     Children = db.query(LessonRecord).filter(LessonRecord.child_id == child_id).order_by(desc(LessonRecord.lesson_date)).limit(5).all() #조회 부분
     return Children
