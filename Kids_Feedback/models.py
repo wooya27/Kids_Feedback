@@ -41,3 +41,15 @@ class LessonRecord(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     child = relationship("Child", back_populates="lesson_records")
+
+
+class Feedback(Base):
+    __tablename__ = "feedbacks"
+    id = Column(Integer, primary_key=True, index=True)
+    child_id = Column(Integer, ForeignKey("children.id"), nullable=False)
+    lesson_record_id = Column(Integer, ForeignKey("lesson_records.id"), nullable=False)
+
+    next_goal = Column(Text, nullable=True)
+    teacher_feedback = Column(Text, nullable=True)
+    parent_feedback = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

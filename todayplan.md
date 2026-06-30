@@ -1,4 +1,4 @@
-# 오늘 작업 계획 — 2026-06-29
+# 오늘 작업 계획 — 2026-06-30 (화)
 
 ## 항상 함께 적용할 규칙
 @.claude/sjy_st.md
@@ -7,120 +7,92 @@
 
 ---
 
-## 📅 토요일(7/4) 마감 로드맵 — 하루 2 day치 (≈3시간)
-> 선택: 전부 다(풀스코프). 하루 약 6세션. 🔴 표시는 막힐 위험 큰 날.
 
-| 날짜 | 할 일 | 비고 |
-|------|------|------|
-| **월 6/29 (오늘)** | Day 4 — LLM 연결 | ▶ 아래 세션 참고 |
-| **화 6/30** | Day 5 (피드백 API·저장) + Day 6 (통합테스트) | |
-| **수 7/1** | Day 7 (1주차 README) + Day 8 (RAG 문서 5개) | 가벼움 |
-| **목 7/2** | 🔴 Day 9 (임베딩·검색) + Day 10 (RAG 통합) | 가장 어려움 |
-| **금 7/3** | 🔴 Day 11 (Streamlit 화면1) + Day 12 (화면2) | |
-| **토 7/4** | Day 13 (그래프·데모) + Day 14 (최종 문서) | |
-
-**원칙:** 풀스코프 — Day 14까지 전부 한다. 아무것도 빼지 않음.
-**막히면:** 한 작업에서 15분 넘게 에러로 막히면 혼자 끙끙대지 말고 바로 질문 → 빨리 풀고 다음으로.
 
 ---
 
-## 세션 1 (30분) — Day 3 마무리 ① ✅ 완료
-- [x] `GET /lesson/{child_id}/lesson-records` 구현 (최근 5개, 날짜순 정렬 포함)
+## 🔁 어제(6/29) 못 끝낸 것 — 오늘 먼저 (Day 4 마무리)
+
+### 세션 1 (30분) — Day 4 ② LLM 호출  ✅ 완료
+- [x] 🔑 Gemini API 키 발급 → `.env`에 넣기 (완료, 키 형식 확인됨)
+- [x] `llm_service.py`에 `generate_feedback(prompt)` 함수 작성 (키/client는 함수 밖, 호출만 함수 안)
+- [x] 실행 테스트: 격려 한마디 프롬프트 → Gemini → 피드백 글 출력 성공
+- [x] 🐞 venv 미활성화로 ImportError → `(kids-feedback)` 켜고 해결
+- [x] 🐞 `gemini-2.0-flash` 429(limit:0) → `gemini-2.5-flash`로 변경 후 성공
+- 끝나면 보여야 할 결과: ✅ 터미널에 Gemini 피드백 글 출력됨
 
 `🔴 7분 휴식`
 
 ---
 
-## 세션 2 (25분) — Day 3 마무리 ② ✅ 완료
-- [x] `main.py`에 lesson_records 라우터 등록
-- [x] 🐞 `schemas.py` `orm_mode = True` → `from_attributes = True` (2군데, Pydantic v2)
-- [x] 🐞 DB 스키마 불일치 → `drop_all + create_all`로 테이블 재생성 (memory_hint 등 새 컬럼 반영)
-- [x] 🐞 라우터 경로 오타 `leasson-records` → `lesson-records`
-- [x] 테스트 데이터: 아이 5명 등록 + child_id=1로 수업기록 5개 입력
-- [x] `GET /lesson/1/lesson-records` → 최신순 5개 확인
+### 세션 2 (30분) — Day 4 ③ 프로필 반영  ✅ 완료
+- [x] [작성 규칙] 추가: 성향 톤 반영, memory_hint·caution_note 학부모 노출 금지, 비교·진단 금지, 도전적 목표
+- [x] [출력 형식] JSON 지정 (next_goal / teacher_feedback / parent_feedback) — `{{ }}` 이스케이프
+- [x] 🐞 없는 변수(`recent_records` 등) → `records_text`, `return prompts`→`prompt` 오타 수정
+- [x] test_prompt.py로 검증: 유리(위축)/민수(승부욕) → 서로 다른 톤 + 규칙 준수 확인
+- [x] 끝나면 보여야 할 결과: ✅ 같은 기록이라도 아이 특징 따라 다른 피드백
+
+`🔴 10분 휴식 — Day 4 완전 종료 ✅✅`
+
+---
+
+## 🆕 오늘 본 작업 — Day 5 (피드백 API·저장)
+
+### 세션 3 (25분) — Day 5 ①  ✅ 완료
+- [x] `Feedback` 모델 추가 (id, child_id·lesson_record_id FK, JSON 3개, created_at)
+- [x] main.py import에 Feedback 추가 → 서버 재시작 → `create_all`로 feedbacks 테이블 생성
+- [x] 개념: Base 상속 → metadata 명단 등록 → create_all이 없는 테이블만 생성
 
 `🔴 7분 휴식`
 
 ---
 
-## ✅ Day 3 마무리 완료 (2026-06-29) — 버그 3개 해결
-
-**[참고]**
-- 전체 코드 흐름이 헷갈리면 `study/00_전체흐름.md` 먼저 읽기
-- 에러 나면 서버 터미널의 빨간 Traceback부터 읽기 (에러 메시지에 답이 있음)
-
----
-
-## 세션 3 (30분) — Day 4 ① ✅ 완료
-- [x] `prompt_service.py` 작성 — 프로필 f-string + 기록 리스트 for 반복문으로 조립
+### 세션 4 (30분) — Day 5 ②  ✅ 완료
+- [x] `POST /feedbacks/generate`: lesson_record_id 받아 → 아이·최근기록 쿼리 → build_prompt → generate_feedback → 결과 반환
+- [x] FeedbackGenerate 스키마(입력=lesson_record_id 하나), feedbacks_router main.py 등록
+- [x] 함수 호출 직접 작성: `build_prompt(child, records)`, `generate_feedback(prompt)` ← 오늘 헷갈린 개념 적용 성공
+- [x] Swagger에서 lesson_record_id=1 → AI 피드백 생성 확인
+- [x] 🐞 `--reload` 대시 누락 / `FeedbackResponse`가 지운 `FeedbackCreate` 참조 → 정리
 
 `🔴 7분 휴식`
 
 ---
 
-## 세션 4 (30분) — Day 4 ②  ◀ 여기서 중단 (내일 이어서)
-- [x] SDK 설치 완료 (`google-genai`, `python-dotenv`)
-- [x] `.env` 파일 생성 + `.gitignore`에 추가 (키 숨길 자리 준비됨)
-- [ ] 🔑 **다음 첫 행동:** Google AI Studio(`aistudio.google.com`)에서 API 키 발급 → `Kids_Feedback/.env`의 `GEMINI_API_KEY=` 뒤에 붙여넣기
-- [ ] `llm_service.py`에 `generate_feedback(prompt)` 함수 작성
-  - 구조: `client.models.generate_content(model="gemini-2.0-flash", contents=prompt)` → `response.text` → `return`
-- [ ] 실행 테스트: prompt_service의 프롬프트 → Gemini → 피드백 글 나오는지
-
-**[다시 시작 문장]**
-- "API 키 발급해서 .env에 넣고, llm_service.py에 Gemini 호출 함수 쓴다."
-
-**[참고]**
-- 개념 정리는 `study/day4.md`에 있음 (API/키, 호출 3단계)
-- prompt_service.py는 완성됨 — `build_prompt(child, records)` 호출하면 프롬프트 나옴
-
-`🔴 10분 휴식`
-
----
-
-## 세션 5 (30분) — Day 4 ③
-- [ ] 프로필 반영: personality(톤), preferred_feedback(격려), caution_note·memory_hint(강사용)
-- [ ] JSON 출력 테스트 (next_goal / teacher_feedback / parent_feedback)
-- 끝나면 보여야 할 결과: 같은 기록이라도 아이 특징에 따라 다른 피드백이 나옴
-
-`🔴 10분 휴식 — 여기까지가 오늘 진짜 목표 ✅`
-
----
-
-## (보너스) 세션 6 (25분) — Day 5 ①
-- [ ] feedbacks 테이블 설계 + 모델 추가
-
-`🔴 7분 휴식`
-
----
-
-## (보너스) 세션 7 (30분) — Day 5 ②
-- [ ] `POST /feedbacks/generate` (최근 기록 + 프로필 자동 포함 → LLM 호출)
-
-`🔴 7분 휴식`
-
----
-
-## (보너스) 세션 8 (25분) — Day 5 ③
+### 세션 5 (25분) — Day 5 ③  ◀ 내일 여기서 시작 (6/30 중단)
 - [ ] LLM 결과 DB 저장 + `GET /children/{id}/feedbacks` + LLM 실패 예외 처리
 
-`🔴 10분 휴식`
+**[현재 상태]**
+- ✅ `llm_service.py`: 깨끗한 JSON 반환하도록 고침 (`config={"response_mime_type":"application/json"}`) → `json.loads` 바로 됨
+- ⏳ `feedbacks_router.py` `/generate`는 아직 `return {"result": result}` (저장 안 함)
+
+**[내일 첫 행동]** `feedbacks_router.py`에서:
+1. 맨 위 `import json` 추가
+2. `return {"result": result}` → 저장 코드로:
+   `data = json.loads(result)` → `Feedback(child_id=child.id, lesson_record_id=record.id, next_goal=data["next_goal"], teacher_feedback=data["teacher_feedback"], parent_feedback=data["parent_feedback"])` → `db.add/commit/refresh/return`
+3. `GET /feedbacks/{child_id}` 조회 + 없는 ID 404 예외처리
+
+**[다시 시작 문장]** "json.loads로 AI 결과를 딕셔너리로 바꿔서 Feedback에 담아 DB에 저장한다."
+
+`🔴 1일차 종료 — Day 4 완료 + Day 5 2/3 진행 ✅`
+
+> ⬆️ **오늘은 여기까지.** Day 5까지 끝내면 1일차 완료.
 
 ---
 
-## (보너스) 세션 9 (30분) — Day 6 ①
-- [ ] 아이 3명 등록 + 프로필 카드 + 각 기록 3개 이상 입력
-
-`🔴 7분 휴식`
-
----
-
-## (보너스) 세션 10 (25분) — Day 6 ②
-- [ ] 피드백 생성 통합 테스트 + 없는 ID 예외 처리
-- [ ] Swagger 캡처 준비 + README API 목록 정리
+## ⏭️ 내일(2일차, 수 7/1) 미리보기 — 오늘 손대지 말 것
+- Day 6 (통합테스트): 아이 3명 등록 + 기록 입력 + 피드백 생성 테스트 + 없는 ID 예외처리
+- Day 7 (1주차 README): API 명세 + ERD + 회고
+- 🔁 복습 1세션
 
 ---
 
 ## 완료
+
+### 2026-06-29
+- Day 3 마무리: `GET /lesson/{child_id}/lesson-records`(최근 5개 정렬), main.py 라우터 등록
+- 🐞 버그 3개: `orm_mode`→`from_attributes`(Pydantic v2), DB 스키마 재생성(drop+create), 라우터 경로 오타
+- Day 4 ①: `prompt_service.py` (프로필 f-string + 기록 for 반복문 조립)
+- Day 4 ② 준비: `google-genai`·`python-dotenv` 설치, `.env` 생성 + `.gitignore` 추가
 
 ### 2026-06-28
 - Day 2 마무리: POST/PATCH children 프로필 필드, Child 모델 lesson_records relationship

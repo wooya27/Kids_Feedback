@@ -61,3 +61,11 @@ class LessonRecordResponse(LessonRecordCreate):
 
 #ChildCreate = 사용자가 POST로 보내는 데이터
 #ChildResponse = 서버가 응답으로 돌려주는 데이터
+
+
+# 사용자는 "어느 수업 기록으로 피드백 만들래?"만 보낸다 → lesson_record_id 하나
+class FeedbackGenerate(BaseModel):
+    lesson_record_id: int
+
+# FeedbackResponse(저장 후 응답용)는 세션 5에서 만든다.
+
