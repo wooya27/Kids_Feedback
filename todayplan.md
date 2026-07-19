@@ -1,4 +1,33 @@
-# 오늘 작업 계획 — 2026-07-09 (목)
+# 오늘 작업 계획 — 2026-07-19 (일)
+
+## 🎯 이번 목표: Day 9 ② embed 들어가기 전, for문 손에 익히기
+> chunking 정리(①)에서 for문 문법에 막힘 → 문법 연습 먼저 하고 돌아온다.
+> 지금은 확장 금지. embed는 for문 되고 나서.
+
+## 세션 (30분) — for문 연습
+- [ ] `study/연습_for문.md` 문제 1~4 직접 쳐서 풀기 (5번은 도전, 못 해도 OK)
+- [ ] 답 파트로 채점 + 틀린 것 왜 틀렸는지 확인
+- 결과: 문제 4번을 안 보고 칠 수 있으면 통과 (= kids.py와 같은 코드)
+
+`🔴 10분 휴식`
+
+## 세션 — kids.py 마무리  ✅ 완료 (Day 9 ① 종료)
+- [x] `print(chunks)` 들여쓰기 풀기
+- [x] 실행 성공 (PowerShell): `cd C:\Users\USER\GITHUB\Kids_Feedback` → `$env:PYTHONIOENCODING="utf-8"` → `python Kids_Feedback\rag\kids.py`
+- [x] 확인 완료: `len(chunks)` = **8**, `chunks[0]`이 `질문:`으로 공백 없이 시작 ✅
+- 📝 `study/day9.md`에 정리함
+- 🐞 오늘 만난 에러 3개 — 전부 코드가 아니라 **실행 환경** 문제였음
+  1. `FileNotFoundError` = 상대경로는 **명령어 친 위치** 기준 (파일 위치 아님)
+  2. `Kids_Feedback` 폴더가 **두 개** — 상위로 가면 안쪽에 도착함. `ls`로 `rag_docs` 보이는지 확인
+  3. `UnicodeEncodeError` = 터미널이 cp949 → `$env:PYTHONIOENCODING="utf-8"` (bash 문법 아님!)
+
+## ⏭️ 그 다음 (오늘 손대지 말 것)
+- Day 9 ② `embed()` — 조각 1개 → 벡터
+- Day 7 README (API 명세 / ERD / 1주차 회고) ← 아직 안 닫힘
+
+---
+
+# (이전) 오늘 작업 계획 — 2026-07-09 (목)
 
 ## 🎯 이번 목표: Day 8 (+ Day 7 README 오늘 안에 닫기)
 > 순서 변경 — 의욕 있을 때 RAG 먼저, README는 개념 세션 직후 손 풀기용으로.

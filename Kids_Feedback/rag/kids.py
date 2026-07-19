@@ -4,4 +4,14 @@
 with open("rag_docs/위축형_칭찬법.md", "r",encoding="utf-8") as f:
     text = f.read()
 chunking= text.split("##")
-print(chunking)
+
+chunks = []
+for c in chunking[1:]:
+    chunks.append(c.strip())
+print(len(chunks))
+print(chunks[0])
+
+
+
+
+
