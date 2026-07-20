@@ -1,15 +1,50 @@
-# 오늘 작업 계획 — 2026-07-19 (일)
+# 오늘 작업 계획 — 2026-07-20 (월)
 
-## 🎯 이번 목표: Day 9 ② embed 들어가기 전, for문 손에 익히기
-> chunking 정리(①)에서 for문 문법에 막힘 → 문법 연습 먼저 하고 돌아온다.
-> 지금은 확장 금지. embed는 for문 되고 나서.
+## 🎯 이번 목표: Day 9 ② `embed()` — 조각 1개 → 벡터
+> for문 연습은 **건너뜀** (kids.py에서 이미 직접 써서 성공 → `study/연습_for문.md`는 막힐 때만 참고)
+> 지금은 확장 금지. 조각 **1개**만 벡터로 바꾸고 닫는다. 전체 조각 8개 반복은 다음 세션.
 
-## 세션 (30분) — for문 연습
-- [ ] `study/연습_for문.md` 문제 1~4 직접 쳐서 풀기 (5번은 도전, 못 해도 OK)
-- [ ] 답 파트로 채점 + 틀린 것 왜 틀렸는지 확인
-- 결과: 문제 4번을 안 보고 칠 수 있으면 통과 (= kids.py와 같은 코드)
+## 세션 (30분) — embed_feedback() 마무리  ✅ 완료 (Day 9 ② 종료)
+- [x] 죽은 코드 `embed(response)` 지우기 — 존재한 적 없는 함수였음 (`NameError`)
+- [x] LLM 코드에서 딸려온 `# ```json ...` 주석 정리
+- [x] 함수 실제로 **호출** → `vector = embed_feedback(chunks[0])`
+- [x] 결과 확인: **3072** + 앞 5개 `[-0.014, 0.010, 0.013, -0.051, 0.006]` ✅
+- 📝 `study/day9.md` ② 파트로 정리함 (7~17번 섹션)
+- 🔴 **오늘 제일 막힌 것: `def`(만들기) vs 호출(부르기)** → day9.md 11번 섹션, 반드시 재방문
+- 🐞 실행환경 에러 2개
+  1. `ImportError: genai` = `python`이 기본 파이썬(C:\Python314)을 잡음 → **venv 파이썬** 써야 함
+  2. `.env`가 안쪽 폴더에 있어서 못 찾음 → `load_dotenv("Kids_Feedback/.env")`로 경로 지정
+
+### 실행 명령어 (이제 이걸로 고정)
+```powershell
+cd C:\Users\USER\GITHUB\Kids_Feedback
+$env:PYTHONIOENCODING="utf-8"
+Kids_Feedback\.venv\Scripts\python.exe Kids_Feedback\rag\kids.py
+```
 
 `🔴 10분 휴식`
+
+## 세션 — Day 9 ③ 조각 8개 전부 임베딩 + 저장  ✅ 완료 (Day 9 ③ 종료)
+- [x] `for`문으로 `chunks` 8개 → 벡터 8개 (`빈 통 → for → append` 패턴, ①에서 이미 씀)
+- [x] `zip(chunks, vectors)`로 `{"text":…, "vector":…}` 묶기
+- [x] `json.dump`로 `Kids_Feedback/rag/vectors.json` 저장
+- [x] 결과 확인: 항목 **8개**, 0번 벡터 길이 **3072**, 0번 텍스트 `질문:`으로 시작 ✅
+- 💡 왜 파일로 저장하나: 임베딩은 **API 호출(돈·시간)**. 한 번 만들어두면 다음부터는 읽기만 하면 됨
+
+## 다음 세션 (10~15분) — Day 9 ④ 검색 (RAG의 마지막 조각)  ⏸️ 진행 중 (`rag/search.py`)
+- [x] `vectors.json` 읽기 (8개 확인)
+- [x] `embed_feedback()` 옮겨오기
+- [x] 질문 문장 1개를 벡터화 (`q_vector`, 길이 3072)
+- [x] `cos_sim(a, b)` 함수 작성 (내적 ÷ (크기a × 크기b))
+- [ ] 🔴 **여기부터** — 8개랑 전부 비교해서 1등 뽑기
+  - `scores = []` 빈 통 → `for d in data:` → `append` → 제일 큰 것
+  - ⚠️ 지금 35번 줄 `scores.append(...)`가 for문 밖에 떠 있음 → 그대로 실행하면 `NameError`
+  - 💡 새 개념 0개. `빈 통 → for → append`는 Day 9 ①·③에서 이미 두 번 직접 쓴 패턴
+- 결과: 관련 질문을 넣었을 때 **딱 맞는 조각**이 뽑혀 나오는지 확인
+- ⛔ 지금은 확장 금지 — 1등 1개만 뽑고 닫는다 (top-3, Streamlit 연결은 다음)
+
+### 다시 시작 문장
+> "빈 통 만들고, for로 8번 돌리고, 제일 큰 거 뽑는다. 저번에 한 거다."
 
 ## 세션 — kids.py 마무리  ✅ 완료 (Day 9 ① 종료)
 - [x] `print(chunks)` 들여쓰기 풀기

@@ -4,8 +4,9 @@
 import os
 from dotenv import load_dotenv
 from google import genai
+import json
 
-load_dotenv()
+load_dotenv("Kids_Feedback/.env")   # .env는 안쪽 폴더에 있음. 경로는 27번 줄과 같은 기준(바깥 Kids_Feedback)
 api_key = os.getenv("GEMINI_API_KEY") #변수명으로 값꺼냄
 
 client = genai.Client(api_key=api_key)
@@ -15,11 +16,12 @@ client = genai.Client(api_key=api_key)
 def embed_feedback(prompt):
     response = client.models.embed_content(
         model="gemini-embedding-001",
-        contents=prompt,
-          # ```json 없이 순수 JSON만 받기
+        contents=prompt
+    
+          
     )
     return response.embeddings[0].values
-    embed(response)
+    
 
 #아래만 있으면 rag_docs 있는답 그대로 나옴
 
@@ -33,7 +35,21 @@ for c in chunking[1:]:
 print(len(chunks))
 print(chunks[0])
 
+vectors = []
+for c in chunks:
+      vectors.append(embed_feedback(c))
+
+print(len(vectors))       # 8   ← 벡터가 8개 만들어졌나
+print(len(vectors[0]))    # 3072 ← 그중 0번은 숫자 3072개인가
 
 
+data = []
+for c, v in zip(chunks, vectors):
+      data.append({"text": c, "vector": v})
+
+with open("Kids_Feedback/rag/vectors.json", "w", encoding="utf-8") as f:
+      json.dump(data, f, ensure_ascii=False)
+
+print("저장 완료:", len(data))
 
 
