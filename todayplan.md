@@ -1,4 +1,25 @@
-# 오늘 작업 계획 — 2026-07-20 (월)
+# 오늘 작업 계획 — 2026-07-22 (수)
+
+## 🎯 이번 목표: Day 10 ① — 찾은 조각을 LLM에 넣어 최종 피드백 만들기 (RAG 결승선)
+> 지금은 확장 금지. search.py에서 뽑은 조각 1개 → 프롬프트에 끼워넣기 → generate_feedback() 호출. 이 흐름 하나만 닫는다.
+> 손대지 말 것: 커밋 안 된 Day 9 ④, 아직 안 닫힌 Day 7 README.
+
+## 세션 (30분) — RAG + LLM 통합 첫 연결  ✅ 완료 (Day 10 결승선 통과 🏁)
+- [x] 찾은 조각을 변수에 담기 (`found = data[best]["text"]`)
+- [x] llm_service의 `generate_feedback` 재사용 (함수 옮겨옴)
+- [x] 프롬프트 문자열 만들기: f-string에 `{found}` + `{question}` 끼워넣기
+- [x] 호출 → 결과 print
+- [x] 결과 확인: 위축형 가이드를 근거로 한 피드백 문장이 출력됨 ✅
+- 📝 `study/day10.md` 0번(전체 흐름 지도) + 2번(오늘 한 것)에 정리
+- 💡 큰 깨달음: RAG 검색은 이미 만든 것(Day 9 ④) → 다음엔 함수로 포장해 웹에 옮기기만
+
+### ⏭️ 다음 (오늘 손대지 말 것)
+- 검색 3단계를 `def rag_search(question)` 함수로 묶기 → `feedbacks_router.py` ④ 자리에 끼우기
+- 커밋 안 된 Day 9 ④ + 오늘 Day 10 작업, 아직 안 닫힌 Day 7 README
+
+---
+
+# (이전) 오늘 작업 계획 — 2026-07-20 (월)
 
 ## 🎯 이번 목표: Day 9 ② `embed()` — 조각 1개 → 벡터
 > for문 연습은 **건너뜀** (kids.py에서 이미 직접 써서 성공 → `study/연습_for문.md`는 막힐 때만 참고)
@@ -31,20 +52,22 @@ Kids_Feedback\.venv\Scripts\python.exe Kids_Feedback\rag\kids.py
 - [x] 결과 확인: 항목 **8개**, 0번 벡터 길이 **3072**, 0번 텍스트 `질문:`으로 시작 ✅
 - 💡 왜 파일로 저장하나: 임베딩은 **API 호출(돈·시간)**. 한 번 만들어두면 다음부터는 읽기만 하면 됨
 
-## 다음 세션 (10~15분) — Day 9 ④ 검색 (RAG의 마지막 조각)  ⏸️ 진행 중 (`rag/search.py`)
+## 세션 — Day 9 ④ 검색 (RAG의 마지막 조각)  ✅ 완료 (Day 9 ④ 종료 = RAG 4조각 완성)
 - [x] `vectors.json` 읽기 (8개 확인)
 - [x] `embed_feedback()` 옮겨오기
 - [x] 질문 문장 1개를 벡터화 (`q_vector`, 길이 3072)
 - [x] `cos_sim(a, b)` 함수 작성 (내적 ÷ (크기a × 크기b))
-- [ ] 🔴 **여기부터** — 8개랑 전부 비교해서 1등 뽑기
-  - `scores = []` 빈 통 → `for d in data:` → `append` → 제일 큰 것
-  - ⚠️ 지금 35번 줄 `scores.append(...)`가 for문 밖에 떠 있음 → 그대로 실행하면 `NameError`
-  - 💡 새 개념 0개. `빈 통 → for → append`는 Day 9 ①·③에서 이미 두 번 직접 쓴 패턴
-- 결과: 관련 질문을 넣었을 때 **딱 맞는 조각**이 뽑혀 나오는지 확인
-- ⛔ 지금은 확장 금지 — 1등 1개만 뽑고 닫는다 (top-3, Streamlit 연결은 다음)
+- [x] 🔴 8개랑 전부 비교해서 1등 뽑기 (`scores=[]` → `for d in data` → `append` → `best=scores.index(max(scores))`)
+- [x] 결과 확인: 질문 "소심한 애가 발표..." → **위축형 칭찬 조각** 뽑힘 ✅ (글자 안 겹쳐도 뜻으로 찾음)
+- 📝 `study/day9.md` ④ 파트 + **[21. 전체 흐름]** 섹션에 정리 (RAG 큰 그림)
+- 🐞 오늘 함정 6개 전부 **위치(들여쓰기) + print 구분** 싸움 (새 문법 0개)
+  1. 중괄호 `{}` → 파이썬은 들여쓰기  2. 돌 대상은 `scores`가 아니라 `data`
+  3. `scores=[]`가 for 안 → 매 바퀴 비워짐  4. 질문 벡터를 for 안(API 낭비)
+  5. `best=print(...)` → print는 `None` 돌려줌  6. `data["text"]` → 리스트는 숫자 자리 `data[best]`
 
-### 다시 시작 문장
-> "빈 통 만들고, for로 8번 돌리고, 제일 큰 거 뽑는다. 저번에 한 거다."
+### ⏭️ 다음 (오늘 손대지 말 것) — RAG 결승선
+- Day 10~11: 찾은 조각을 **LLM 프롬프트에 넣어 최종 답 만들기** (3단계) + Streamlit 화면 연결
+- ⚠️ `search.py` 위쪽 확인용 print 2줄(`len(data)`, `data[0]`)은 나중에 정리
 
 ## 세션 — kids.py 마무리  ✅ 완료 (Day 9 ① 종료)
 - [x] `print(chunks)` 들여쓰기 풀기
