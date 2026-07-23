@@ -13,9 +13,64 @@
 - 📝 `study/day10.md` 0번(전체 흐름 지도) + 2번(오늘 한 것)에 정리
 - 💡 큰 깨달음: RAG 검색은 이미 만든 것(Day 9 ④) → 다음엔 함수로 포장해 웹에 옮기기만
 
-### ⏭️ 다음 (오늘 손대지 말 것)
-- 검색 3단계를 `def rag_search(question)` 함수로 묶기 → `feedbacks_router.py` ④ 자리에 끼우기
-- 커밋 안 된 Day 9 ④ + 오늘 Day 10 작업, 아직 안 닫힌 Day 7 README
+- ✅ (추가로 함) 검색 3단계를 `def rag_search(question)` 함수로 포장 완료
+- ✅ 커밋·푸시까지 끝냄 (`5c9fd29`, `ccee9a4`) — working tree clean
+
+---
+
+# 📋 다음에 할 일 (뭐해야하냐 물으면 여기부터)
+
+## 🔜 다음 세션 — Day 10 마무리: RAG를 웹서버에 붙이기 (40~60분)
+> 목표: 지금 `search.py`에만 있는 `rag_search()`를 실제 피드백 API(`feedbacks_router.py`)의 ④ 자리에 끼워서, 웹 요청 한 번에 RAG까지 돌게 만들기.
+> 지금은 확장 금지 — 이 연결 하나만 닫는다.
+
+- [x] `rag_search()`를 재사용 가능하게 옮기기 → **`rag/rag_service.py` 신규 모듈로 분리 완료** ✅
+      - 옮긴 것: import 5개 / `data`(vectors.json) / `client` / `embed_feedback` / `cos_sim` / `rag_search`
+      - 안 옮긴 것(중요): 확인용 `print` 2줄, `generate_feedback`(llm_service 담당), 맨 아래 실행부
+      - 💡 개념: **함수를 복사해도 그 함수가 쓰던 재료는 안 따라온다** (이름은 "그 파일 안에서만" 찾음)
+      - 💡 모듈에 실행 코드를 두면 import 순간 API가 호출됨 → 모듈엔 `def`만
+      - ✅ 확인: `python -c "...from Kids_Feedback.rag.rag_service import rag_search..."` → 조각 출력, 잡print 없음
+      - ⚠️ 관찰: 짧은 질문("소심한 애가 처음으로 발표했어요")은 엉뚱한 조각(어린 동생)이 뽑힘 → 질문 문장 만들기 단계에서 다룰 것
+- [x] `feedbacks_router.py`의 ④ 자리: 수업 기록으로 질문 문장 만들기 → `found = rag_search(질문)` ✅
+      - 12번 줄 `from rag.rag_service import rag_search` / 33~34번 줄 `question` + `found`
+      - 질문 문장 설계: `child.personality`(어떤 아이) + `record.activity`(무슨 상황) → 조각 생김새를 닮게
+      - 🔴 여기서 막힌 것 = **함수 호출** (또 나옴!) → [[project_func_call_revisit]]
+        1. `found = (question)` — 괄호만 있고 **이름이 없으면 호출이 아님**. `(5)`가 그냥 `5`인 것과 같음
+        2. `from rag import rag_service`(파일 통째) vs `from rag.rag_service import rag_search`(함수만) 차이
+        - 외울 것: **호출 = 이름 + 괄호. 한 몸.**
+
+### 🔴 여기서 멈춤 (집중력 바닥) — 다음에 이어서
+- [ ] `build_prompt(child, records)` 에 `found` 받을 자리 하나 추가 (`def build_prompt(child, records, found)`)
+- [ ] 프롬프트의 `[작성 규칙]` 위에 `[지도 가이드]` 칸 만들고 `{found}` 끼워넣기
+- [ ] 라우터 40번 줄도 같이 고치기: `build_prompt(child, records, found)`
+      - ⚠️ 파일 2개를 **동시에** 고쳐야 함 (한 쪽만 고치면 `TypeError: 인자 개수 안 맞음`)
+- ℹ️ 지금 에디터의 `"found" is not accessed` 경고는 정상 — 위 3줄 하면 사라짐
+- [ ] Swagger `/feedbacks/generate` 로 테스트 → RAG 자료가 반영된 피드백 나오는지 확인
+- [ ] 결과 확인: RAG 붙이기 전/후 피드백이 달라지는지 비교 ✅
+- 끝나면: study/day10.md 에 "웹 통합" 파트 추가 + 커밋·푸시
+
+## 📅 내일 — Day 11 준비: Streamlit "개념만" 보기 (코드 X, 30분)
+> ⚠️ 새 기술(처음 배움). 내일은 **화면 만들기 전에 개념·감만 잡는 세션.** 코드는 그다음.
+> 목표: "Streamlit이 뭐고 왜 쓰고, 우리 프로젝트에서 무슨 역할인지" 내 말로 설명할 수 있으면 끝.
+
+- [ ] Streamlit이 뭔지 (파이썬만으로 웹 화면 만드는 도구 = 우리 5부품 중 ① 프론트엔드)
+- [ ] 왜 쓰나: HTML/JS 몰라도 파이썬 몇 줄로 버튼·입력창·표가 나옴 → 데모/프로토타입에 최적
+- [ ] 핵심 감만: `st.title()`, `st.text_input()`, `st.button()`, `st.write()` 뭐 하는 애들인지 눈으로
+- [ ] 우리 그림에 위치시키기: Streamlit(화면) → FastAPI(API 호출) → 결과 표시 (day10.md 0번 지도의 ①↔②)
+- [ ] 공식 문서 훑기: https://docs.streamlit.io (Get started)
+- [ ] 완료 기준: "Streamlit은 ___이고, 우리 프로젝트에선 ___ 역할" 한 문장 말하기
+- 📝 study 폴더에 Day11_예습_Streamlit.md 로 개념 메모 (선택)
+
+---
+
+# 🗺️ 전체 남은 로드맵 (참고용 — 세션마다 하나씩만)
+- [ ] **Day 10 마무리** — RAG 웹 통합 (다음 세션, 40~60분)
+- [ ] **Day 11** — Streamlit 개념(내일) → 화면1: 아이 목록·프로필·입력 (2~3시간)
+- [ ] **Day 12** — Streamlit 화면2: 피드백 생성 버튼·카드·이력 (1.5~2시간)
+- [ ] **Day 13** — 성장 그래프 + 데모 시나리오 (1~2시간)
+- [ ] **Day 14** — README 최종 정리 (1시간)
+- [ ] **Day 7** — 1주차 README (API 명세·ERD·회고) ← 계속 미뤄진 것 (30~40분)
+> 진도 약 65~70%. 두뇌(백엔드+RAG)는 넘었고, 남은 실질 작업 ≈ 7~9시간(절반이 Streamlit).
 
 ---
 
