@@ -56,8 +56,8 @@
 - 내가 틀려도 다그치지 말고, 어디서 헷갈렸는지 짚어주는 식으로.
 
 ## 작업 계획 (DAY3플랜.md → todayplan.md)
-- **원본 지도:** `Kids_Feedback/plan/Kids_Feedback_DAY3플랜.md` (DAY 1~3 전체) · **일일 작업지:** 루트 `todayplan.md`.
-  - (참고용 구버전: `Kids_Feedback/plan/plan.md` — Day 1~14. 기준 아님, 지우지 말 것.)
+- **원본 지도:** `plan/Kids_Feedback_DAY3플랜.md` (DAY 1~3 전체) · **일일 작업지:** 루트 `todayplan.md`.
+  - (참고용 구버전: `plan/plan.md` — Day 1~14. 기준 아님, 지우지 말 것.)
 - 내가 **"오늘 뭐해?"/"다음 뭐해?"** 라고 물으면 **`daily-plan` 스킬을 사용**해라. (DAY3플랜.md에서 오늘치 한 세션만 뽑는 규칙은 스킬 안에 있음)
 - **[상시]** 작업이 완료될 때마다 `todayplan.md` 항목을 `- [x]`로 체크하고 "완료" 섹션으로 옮긴다. 대화 중 수시로 진행 상황을 반영한다.
 - `DAY3플랜.md`는 원본 지도이므로 함부로 바꾸지 않는다. 계획 자체가 바뀔 때만 사용자 확인 후 수정한다.

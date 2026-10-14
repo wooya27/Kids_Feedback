@@ -1,6 +1,6 @@
 ---
 name: daily-plan
-description: 전체 로드맵(Kids_Feedback/plan/Kids_Feedback_DAY3플랜.md)과 현재 진도를 보고, 오늘 할 25~40분짜리 한 세션 분량만 todayplan.md에 뽑아 적어주는 스킬. 사용자가 "오늘 뭐해?", "다음 뭐해?", "다음 작업 뭐야?", "오늘 뭐하지", "/daily-plan" 같이 다음에 할 일을 물을 때 호출한다.
+description: 전체 로드맵(plan/Kids_Feedback_DAY3플랜.md)과 현재 진도를 보고, 오늘 할 25~40분짜리 한 세션 분량만 todayplan.md에 뽑아 적어주는 스킬. 사용자가 "오늘 뭐해?", "다음 뭐해?", "다음 작업 뭐야?", "오늘 뭐하지", "/daily-plan" 같이 다음에 할 일을 물을 때 호출한다.
 ---
 
 # 오늘 할 일 뽑기 (daily-plan)
@@ -11,9 +11,9 @@ description: 전체 로드맵(Kids_Feedback/plan/Kids_Feedback_DAY3플랜.md)과
 ADHD 작업 규칙(`.claude/sjy_st.md`)에 맞춰 한 번에 세션 1개만 준다.
 
 ## 파일 역할
-- **원본 지도:** `Kids_Feedback/plan/Kids_Feedback_DAY3플랜.md` — DAY 1~3 전체 로드맵(각 Day 작업 체크리스트). "무엇을 만들지"의 출처.
+- **원본 지도:** `plan/Kids_Feedback_DAY3플랜.md` — DAY 1~3 전체 로드맵(각 Day 작업 체크리스트). "무엇을 만들지"의 출처.
 - **일일 작업지:** 프로젝트 루트 `todayplan.md` — 오늘 할 만큼만 뽑아온 목록.
-- (참고용 구버전 `Kids_Feedback/plan/plan.md`는 기준 아님.)
+- (참고용 구버전 `plan/plan.md`는 기준 아님.)
 
 ## 순서 (이대로)
 1. **현재 진도 파악:** `todayplan.md`의 완료 상태 + `git log --oneline -10` 으로 지금 어디까지 했는지 먼저 확인한다. 추측하지 않는다.
