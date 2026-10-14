@@ -1,12 +1,17 @@
 import json
 import os
+import math
+from pathlib import Path
+
 from dotenv import load_dotenv
 from google import genai
-import math
-with open("Kids_Feedback/rag/vectors.json", "r", encoding="utf-8") as f:
-      data = json.load(f)
 
-load_dotenv("Kids_Feedback/.env")
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+with open(BASE_DIR / "rag" / "vectors.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+load_dotenv(BASE_DIR / ".env")
 api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
 

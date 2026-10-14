@@ -7,7 +7,7 @@ from routers.lesson_records_router import router as lesson_records_router
 from routers.feedbacks_router import router as feedbacks_router
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI() #main.py 안의 app = FastAPI()라는 코드가 실행되면서 FastAPI 앱 객체가 만들어지는 것
 
 app.include_router(children_router)
 app.include_router(lesson_records_router)
