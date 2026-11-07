@@ -1,0 +1,9 @@
+# Docker가 컨테이너 안에 설치할 "실제 사용하는" 패키지 목록
+# (venv엔 깔려 있지만, 다른 환경/컨테이너엔 없으므로 여기에 적어야 한다)
+fastapi[standard]
+sqlalchemy
+psycopg2-binary        # PostgreSQL 드라이버 (binary = 컴파일 없이 바로 설치)
+python-dotenv
+google-genai
+langgraph
+tenacity<9.2.0         # google-genai 호환 (langgraph가 올리는 최신과 충돌 방지)

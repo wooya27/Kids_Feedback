@@ -1,8 +1,15 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = URL.create(
+load_dotenv()
+
+# ── DB 주소: 환경변수(DATABASE_URL)가 있으면 그걸, 없으면 로컬 기본값 ──
+#  Docker에선 compose가 DATABASE_URL을 넣어줌 (host가 localhost가 아니라 'db' 서비스).
+#  내 PC에서 그냥 돌릴 땐 env가 없으니 아래 기본값(localhost)을 쓴다.
+DATABASE_URL = os.getenv("DATABASE_URL") or URL.create(
     drivername="postgresql+psycopg2",
     username="postgres",
     password="1234",
