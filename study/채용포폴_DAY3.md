@@ -112,10 +112,25 @@ Node 2: HTTP Request      (n8n이 FastAPI에게 일을 요청)
   docker compose exec -e N8N_RUNNERS_BROKER_PORT=5690 n8n n8n execute --id=<워크플로id>
   ```
 
+### ✅ Webhook 방식 (진짜 자동 트리거 — `n8n_workflow_webhook.json`)
+Manual Trigger 대신 **Webhook 노드**로 바꿔서 "외부에서 POST 한 번에 자동 실행"을 완성.
+```bash
+docker compose cp n8n_workflow_webhook.json n8n:/tmp/wf_webhook.json
+MSYS_NO_PATHCONV=1 docker compose exec n8n n8n import:workflow --input=/tmp/wf_webhook.json
+MSYS_NO_PATHCONV=1 docker compose exec n8n n8n publish:workflow --id=<id>   # 활성화
+docker compose restart n8n                                                  # webhook 등록
+# 호출:
+curl -X POST http://localhost:5679/webhook/kids -H "Content-Type: application/json" -d '{"lesson_record_id":1}'
+```
+- 결과: 응답 본문에 피드백 JSON(id=5) 반환 + API 로그에 n8n 컨테이너 IP(172.19.0.4)에서 들어온 요청 확인.
+- 전체 체인 증명: **외부 POST → Webhook → HTTP Request → FastAPI → LangGraph → PostgreSQL → 반환.**
+- ⚠️ GUI로 하려면: `localhost:5679` → 워크플로 열기 → 우상단 Active 토글 ON → production webhook URL로 POST.
+
 ### 완료 기준
 - [x] n8n Workflow 실행 (status: success)
 - [x] n8n에서 FastAPI POST 호출 (HTTP Request → http://api:8000)
 - [x] 피드백 결과가 n8n에 돌아옴 (teacher/parent_feedback JSON)
+- [x] Webhook 트리거(외부 POST 1회 → 자동 실행)까지 완성
 
 ### 🐞 n8n CLI 함정 (오늘 겪은 것)
 - `/tmp/wf.json`이 Git Bash에서 윈도우 경로로 변환됨 → `MSYS_NO_PATHCONV=1` 로 끔.

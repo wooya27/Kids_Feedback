@@ -16,6 +16,9 @@
       - 🐞 CLI 함정: MSYS 경로변환(MSYS_NO_PATHCONV=1) / execute는 import후 --id / broker포트 5690 분리
 - ✅ **v2 플랜 DAY1~3 구현·실행 전부 완료** (API→DB→RAG→LLM→LangGraph→Logging→Docker→n8n)
 - [x] **구멍 보강: LangGraph 라이브 통합** — 데모였던 그래프를 진짜 노드(DB·RAG·LLM·review)로 바꾸고 라우터가 graph.invoke 호출. 실제 요청이 그래프를 탐(로그 review/LangGraph completed 확인, id=3). 이제 "요청이 LangGraph 탐"이 사실.
+- [x] **구멍 보강: Webhook** — n8n_workflow_webhook.json, publish+restart로 활성화. 외부 POST→Webhook→API→LangGraph→DB 체인 증명(id=5, n8n컨테이너IP에서 요청). 
+- [x] **구멍 보강: push** — 커밋 origin/main 반영 완료.
+- 🎉 **계획 3대 구멍 전부 닫힘** (LangGraph통합 / Webhook / push)
 - [ ] **마감단계** — 테스트케이스 30~50 / 평가지표 수치화 / Cloud배포 / README / AX·DX 포지셔닝 / 3분 스크립트
 - [ ] **마감단계** — 테스트케이스 30~50 / 평가지표 / Cloud배포 / README / AX·DX 포지셔닝 문서
 - 🎯 목표 직무: **AI 자동화 / AX·DX 실무** → 수치(시간절감) + 운영설계(Human Review·실패복구) + n8n 자동화 어필

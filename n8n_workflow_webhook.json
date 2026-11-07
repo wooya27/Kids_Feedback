@@ -1,0 +1,46 @@
+{
+  "name": "kids_feedback_webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kids",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "33333333-3333-3333-3333-333333333333",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "kids-webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/feedbacks/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{ \"lesson_record_id\": 1 }",
+        "options": {}
+      },
+      "id": "44444444-4444-4444-4444-444444444444",
+      "name": "Call Kids_Feedback API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [240, 0]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          { "node": "Call Kids_Feedback API", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "versionId": "00000000-0000-0000-0000-000000000001"
+}
