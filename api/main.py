@@ -1,4 +1,13 @@
+import logging
+
 from fastapi import FastAPI
+
+# ── 로그 기본 설정: 시간 + 레벨 + 메시지 형태로 콘솔에 찍기 ──
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+    datefmt="%H:%M:%S",
+)
 
 from database import engine, Base
 from models import Child, LessonRecord, Feedback

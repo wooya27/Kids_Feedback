@@ -1,3 +1,17 @@
+# 📌 2026-11-08 — 채용 포트폴리오 플랜 v2 진행 (한 단계씩)
+> 기준: `plan/Kids_Feedback_채용포트폴리오_업데이트_v2.md` · 단계마다 study/채용포폴_DAYn.md 정리
+- [x] **DAY1 작업3** — RAG `found` → 프롬프트 `[지도 가이드]` 연결 + E2E 호출 성공 (커밋 `6aa93f3`) → study/채용포폴_DAY1.md
+- [x] **DAY2 작업1** — LangGraph 최소 구조 `START→retrieve→generate→END` 실행 성공 → study/채용포폴_DAY2.md
+      - 환경: `langgraph` 설치(pip), `tenacity<9.2.0` 핀(google-genai 충돌 해결), `graph/` 폴더 생성
+- [x] **DAY2 작업2** — review Node + Conditional Edge (1차 불량→retry→2차 통과→END 실행 확인) → study/채용포폴_DAY2.md
+- [x] **DAY2 작업3** — Logging + run_id (정상 6단계+elapsed 13.82s / 없는ID→STOPPED→404 확인) → study/채용포폴_DAY2.md
+      - 실측 수치: 응답 13.82s, 병목=LLM(~13s). 실패단계=DB조회. (마감단계 평가지표 재료)
+- [ ] **DAY3 작업1~3** — n8n 자동호출 / Docker / E2E ← 다음
+- 🎯 목표 직무: **AI 자동화 / AX·DX 실무** → 수치(시간절감) + 운영설계(Human Review·실패복구) + n8n 자동화 어필
+- 📝 TODO(마감단계): AX·DX용 포트폴리오 포지셔닝 문서 따로 작성
+
+---
+
 # 오늘 작업 계획 — 2026-07-22 (수)
 
 ## 🎯 이번 목표: Day 10 ① — 찾은 조각을 LLM에 넣어 최종 피드백 만들기 (RAG 결승선)
