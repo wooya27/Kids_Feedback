@@ -5,12 +5,16 @@ from typing import List
 from sqlalchemy.orm import Session
 from database import get_db
 from models import LessonRecord, Feedback
-from schemas import FeedbackGenerate, FeedbackResponse
+from schemas import FeedbackGenerate, FeedbackResponse, FeedbackReviewUpdate
 from graph.feedback_graph import graph as feedback_graph   # ★ 직선 코드 대신 LangGraph 흐름 사용
 
 import logging
 import uuid
 import time
+from datetime import datetime, timezone
+
+# 강사가 내릴 수 있는 검수 결과(이 3개만 허용)
+ALLOWED_REVIEW_STATUS = {"approved", "edited", "rejected"}
 
 # 이 파일(라우터) 전용 로거. 이름표 "feedbacks" 로 찍힘
 logger = logging.getLogger("feedbacks")
@@ -62,6 +66,32 @@ def generate_feedback_endpoint(payload: FeedbackGenerate, db: Session = Depends(
     logger.info("[%s] feedback saved - id=%s, elapsed=%.2fs", run_id, new_feedback.id, elapsed)
     return new_feedback
      
+
+@router.patch("/{feedback_id}/review", response_model=FeedbackResponse)
+def review_feedback(feedback_id: int, payload: FeedbackReviewUpdate, db: Session = Depends(get_db)):
+    """강사가 AI 피드백을 검수한 결과(승인/수정/거절)를 DB에 기록한다."""
+    # 1) 허용된 상태값인지 먼저 검사 (approved/edited/rejected 외엔 거부)
+    if payload.review_status not in ALLOWED_REVIEW_STATUS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"review_status는 {ALLOWED_REVIEW_STATUS} 중 하나여야 합니다",
+        )
+
+    # 2) 대상 피드백 찾기 (없으면 404)
+    feedback = db.query(Feedback).filter(Feedback.id == feedback_id).first()
+    if feedback is None:
+        raise HTTPException(status_code=404, detail="해당 피드백이 없습니다")
+
+    # 3) 검수 결과 기록 + 검수 시각 도장 찍기
+    feedback.review_status = payload.review_status
+    feedback.review_comment = payload.review_comment
+    feedback.reviewed_at = datetime.now(timezone.utc)
+
+    db.commit()
+    db.refresh(feedback)
+    logger.info("feedback reviewed - id=%s, status=%s", feedback.id, feedback.review_status)
+    return feedback
+
 
 @router.get("/{child_id}",response_model= List[FeedbackResponse])
 def get_feedbacks(child_id: int, db: Session = Depends(get_db)):

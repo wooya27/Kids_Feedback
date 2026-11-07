@@ -53,3 +53,11 @@ class Feedback(Base):
     teacher_feedback = Column(Text, nullable=True)
     parent_feedback = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    # ── Human Review (사람 검수 결과) ──
+    # AI가 만든 초안을 강사가 보고 내린 판단을 여기에 남긴다.
+    # pending(검수 전) → approved(그대로 승인) / edited(수정 후 사용) / rejected(폐기)
+    # 이 값들이 쌓이면 승인률·수정률 같은 '수치'를 계산할 수 있다.
+    review_status = Column(String(20), nullable=False, server_default="pending")
+    review_comment = Column(Text, nullable=True)      # 강사가 남긴 코멘트(예: "보호자용 문장 더 쉽게")
+    reviewed_at = Column(DateTime(timezone=True), nullable=True)  # 검수한 시각

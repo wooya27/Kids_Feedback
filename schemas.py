@@ -71,6 +71,11 @@ class FeedbackGenerate(BaseModel):   # 형제 1 (입력용): 왼쪽 끝
     lesson_record_id: int
 
 
+class FeedbackReviewUpdate(BaseModel):   # 강사가 검수 결과를 보낼 때 쓰는 입력
+    review_status: str                   # approved / edited / rejected
+    review_comment: Optional[str] = None # 수정/거절 이유 메모 (선택)
+
+
 class FeedbackResponse(BaseModel):   # 형제 2 (응답용): 왼쪽 끝
     id: int
     child_id: int
@@ -79,6 +84,11 @@ class FeedbackResponse(BaseModel):   # 형제 2 (응답용): 왼쪽 끝
     teacher_feedback: str
     parent_feedback: str
     created_at: datetime
+
+    # Human Review 결과도 응답에 같이 보여준다
+    review_status: str
+    review_comment: Optional[str] = None
+    reviewed_at: Optional[datetime] = None
 
     class Config:                    # FeedbackResponse의 자식 (안쪽 4칸)
         from_attributes = True   # "딕셔너리만 읽는 지원에게 상자를 꺼내서 읽어도돼" 라고 권한을 주는것
