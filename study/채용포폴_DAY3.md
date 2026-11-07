@@ -12,9 +12,23 @@
 
 | 작업 | 내용 | 상태 |
 |---|---|---|
-| 작업 1 | n8n에서 Kids_Feedback API 자동 호출 | 🟡 설계·설명 완료 (n8n 컨테이너 기동+GUI는 다음) |
+| 작업 1 | n8n에서 Kids_Feedback API 자동 호출 | 🟡 n8n 컨테이너 기동 완료(5679), GUI 워크플로 작성만 남음 |
 | **작업 2** | **Docker로 실행환경 묶기** | ✅ **빌드+실행 성공** (api 컨테이너 /health ok) |
-| 작업 3 | 전체 E2E 실행 + 3분 설명 | ⬜ (데이터 seeding / n8n 연결 후) |
+| **작업 3** | **전체 E2E 실행** | ✅ **컨테이너에서 피드백 생성 완주** (id=1, elapsed 14.55s) |
+
+### 🏁 전체 스택 Docker 실행 (2026-11-08)
+| 컨테이너 | 호스트 포트 | 내부 | 상태 |
+|---|---|---|---|
+| api (FastAPI) | 8001 | 8000 | E2E 완주 |
+| db (PostgreSQL 16) | 5432* | 5432 | seed.py로 유리+기록2건 |
+| n8n 2.46.6 | 5679 | 5678 | 부팅 완료 |
+*호스트 5432는 로컬 Postgres가 점유 → 컨테이너 db는 내부망(db:5432)으로만 접근. seeding은 `docker compose exec api python seed.py`로.
+
+### 🐞 Docker가 잡아낸 버그 (포폴 스토리) — 라이브러리 버전 차이
+- 증상: 컨테이너 E2E에서 `400 JSON mode is not enabled for api version v1. Use v1beta`.
+- 원인: 컨테이너가 받은 `google-genai`는 최신(3.x)이라 기본 API가 `v1` → JSON 모드 미지원. 로컬은 구버전(2.10)이라 기본 `v1beta`라 됐음.
+- 해결: `genai.Client(..., http_options={"api_version": "v1beta"})` 명시 → 버전 무관 동작.
+- 교훈: **"내 PC에선 됨"의 정체(의존성 버전 차이)를 Docker E2E가 잡아냈다.** = Docker를 쓰는 이유 그 자체.
 
 > ✅ **실행 결과(2026-11-08):** `docker compose up -d --build db api` → 이미지 빌드 성공,
 > `kids_feedback-api`(host 8001→컨테이너 8000) + `kids_feedback-db`(postgres:16) 기동.

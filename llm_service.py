@@ -10,7 +10,9 @@ from google import genai
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY") #변수명으로 값꺼냄
 
-client = genai.Client(api_key=api_key)
+client = genai.Client(api_key=api_key, http_options={"api_version": "v1beta"})
+# ↑ v1beta 명시: JSON 모드(response_mime_type)를 쓰려면 필요. google-genai 최신(3.x)은
+#   기본이 v1이라 JSON 모드가 막힘 → 버전 달라도 되게 v1beta로 고정. (Docker에서 발견한 버전차이 대응)
 
 # 왜 밖에 두는 게 맞냐 다시 짚자면: 키 읽기랑 점원 부르기는 프로그램 켤 때 딱 한 번만 하면 돼.
 

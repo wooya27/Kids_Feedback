@@ -10,8 +10,9 @@
       - 만든 것: Dockerfile, docker-compose.yml(api+db+n8n), requirements.txt, .env.example
       - 해결: pyproject 의존성 기록 누락 / database.py DB주소 env로 분리(localhost→'db')
       - ⚠️ 8000 점유(다른 앱) → 8001:8000 매핑 / db 빈상태라 generate는 seeding 전 404
-- [🟡] **DAY3 작업1** — n8n: compose에 서비스 정의 완료, 컨테이너 기동+GUI 워크플로는 다음
-- [ ] **DAY3 작업3** — 데이터 seeding + n8n 연결 후 전체 E2E + 3분 설명
+- [x] **DAY3 작업3** — 컨테이너 E2E 완주: seed→/feedbacks/generate→RAG반영 피드백 저장(id=1, 14.55s)
+      - 🐞 Docker가 잡은 버그: google-genai 3.x는 기본 v1 → JSON모드 실패 → `http_options={"api_version":"v1beta"}`로 해결
+- [🟡] **DAY3 작업1** — n8n 컨테이너 기동(5679) 완료. GUI 워크플로(Webhook→HTTP Request http://api:8000)만 남음
 - [ ] **마감단계** — 테스트케이스 30~50 / 평가지표 / Cloud배포 / README / AX·DX 포지셔닝 문서
 - 🎯 목표 직무: **AI 자동화 / AX·DX 실무** → 수치(시간절감) + 운영설계(Human Review·실패복구) + n8n 자동화 어필
 - 📝 TODO(마감단계): AX·DX용 포트폴리오 포지셔닝 문서 따로 작성
