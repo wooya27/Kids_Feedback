@@ -3,15 +3,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from sqlalchemy.orm import Session
-from sqlalchemy import desc
 from database import get_db
-from models import LessonRecord, Child, Feedback
+from models import LessonRecord, Feedback
 from schemas import FeedbackGenerate, FeedbackResponse
-from prompt_service import build_prompt
-from llm_service import generate_feedback
-from rag.rag_service import rag_search
+from graph.feedback_graph import graph as feedback_graph   # ★ 직선 코드 대신 LangGraph 흐름 사용
 
-import json
 import logging
 import uuid
 import time
@@ -32,37 +28,27 @@ def generate_feedback_endpoint(payload: FeedbackGenerate, db: Session = Depends(
     started = time.perf_counter()  # 응답시간 재기 시작
     logger.info("[%s] feedback request received - lesson_record_id=%s", run_id, payload.lesson_record_id)
 
-    # 1) 받은 lesson_record_id로 그 수업 기록 1개 찾기
+    # 1) 없는 lesson_record_id면 404로 먼저 막기 (그래프 들어가기 전)
     record = db.query(LessonRecord).filter(LessonRecord.id == payload.lesson_record_id).first()
-
-    # 1-2) 없는 lesson_record_id면 record가 None → 아래서 크래시 나기 전에 404로 막기
     if record is None:
-        logger.warning("[%s] STOPPED at DB lookup - lesson record not found", run_id)  # 어디서 멈췄는지 로그로 남김
+        logger.warning("[%s] STOPPED at DB lookup - lesson record not found", run_id)
         raise HTTPException(status_code=404, detail="해당 수업 기록이 없습니다")
     logger.info("[%s] lesson record loaded", run_id)
 
-    # 2) 그 기록이 어느 아이 건지 → child_id로 아이 찾기
-    child = db.query(Child).filter(Child.id == record.child_id).first()
-    logger.info("[%s] child loaded - %s", run_id, child.name)
+    # 2) ★ LangGraph 실행: retrieve(DB+RAG) → generate(LLM) → review(조건분기) ★
+    #    예전엔 여기서 직선으로 다 했지만, 이제 그래프가 그 단계들을 담당한다.
+    final = feedback_graph.invoke({
+        "db": db,
+        "run_id": run_id,
+        "lesson_record_id": payload.lesson_record_id,
+    })
+    logger.info("[%s] LangGraph completed - review_ok=%s, attempts=%s",
+                run_id, final.get("review_ok"), final.get("attempts"))
 
-    question = f"질문: {child.personality} 아이가 {record.activity}를 했을 때 뭐라고 말해주나요?"
-    found = rag_search(question)
-    logger.info("[%s] RAG search completed", run_id)
-
-    # 3) 그 아이의 최근 수업 기록 5개 (Day 3에서 한 거랑 같은 쿼리)
-    records = db.query(LessonRecord).filter(LessonRecord.child_id == child.id).order_by(desc(LessonRecord.lesson_date)).limit(5).all()
-
-    # 4) 프롬프트 조립: build_prompt에 아이(child)+기록들(records)+RAG found 넘기기
-    prompt = build_prompt(child, records, found)
-
-    # 5) LLM 호출: 만든 prompt를 generate_feedback에 넘기기
-    result = generate_feedback(prompt)
-    logger.info("[%s] LLM generation completed", run_id)
-
-    # 6) 결과 JSON을 꺼내 Feedback 테이블에 저장
-    data = json.loads(result)
+    # 3) 그래프 결과(final 가방)에서 피드백 꺼내 Feedback 테이블에 저장
+    data = final["feedback"]
     new_feedback = Feedback(
-        child_id=child.id,
+        child_id=final["child"].id,
         lesson_record_id=record.id,
         next_goal=data["next_goal"],
         teacher_feedback=data["teacher_feedback"],

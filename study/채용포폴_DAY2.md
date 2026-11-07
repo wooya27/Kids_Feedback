@@ -261,8 +261,18 @@ logger.info("[%s] feedback saved - id=%s, elapsed=%.2fs", run_id, new_feedback.i
 
 ---
 
+---
+
+## ✅ 라이브 통합 완료 (처음엔 데모였다가 실제 API에 연결)
+처음 만들 땐 `feedback_graph.py`가 **가짜 값 데모**였고 실제 `/feedbacks/generate`는 라우터의 직선 코드로 돌았다.
+그 뒤 **노드를 진짜 작업(DB·RAG·LLM·review)으로 바꾸고, 라우터가 `graph.invoke(...)`를 호출**하도록 교체했다.
+이제 실제 요청이 retrieve→generate→review(조건분기)를 **진짜로 통과**한다 (로그의 `review - 필수필드 통과? / LangGraph completed`가 증거).
+- State에 `db`, `run_id`를 실어 노드가 조회·로그 가능하게 함
+- 404(없는 ID)는 라우터에서 먼저 처리 후 그래프 호출
+- review 실패 시 최대 2회 재시도 가드(`MAX_ATTEMPTS`)
+- 파일: `graph/feedback_graph.py`(진짜 노드), `routers/feedbacks_router.py`(graph 호출)
+
 ## 🔗 관련
-- 이 그래프로 감쌀 원래 직선 로직: `routers/feedbacks_router.py`
 - 포트폴리오 확장(마감단계): review_status(pending/approved/edited/rejected) DB 저장 = Human Review 지표
 - 로그에서 나온 수치(응답시간·실패단계) → 마감단계 "평가 지표"로 집계
 - DAY2 종료 → 다음 DAY3(n8n / Docker / E2E)
