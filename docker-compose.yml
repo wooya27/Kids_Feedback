@@ -23,7 +23,7 @@ services:
       DATABASE_URL: postgresql+psycopg2://postgres:${POSTGRES_PASSWORD:-1234}@db:5432/kids_feedback_db
       GEMINI_API_KEY: ${GEMINI_API_KEY}    # .env(호스트)에서 주입 — 깃엔 안 올라감
     ports:
-      - "8000:8000"
+      - "8001:8000"                        # 호스트 8001 → 컨테이너 8000 (8000은 이 PC의 다른 앱이 점유 중)
     depends_on:
       - db                                 # db 먼저 뜨고 나서 api
 

@@ -12,9 +12,16 @@
 
 | 작업 | 내용 | 상태 |
 |---|---|---|
-| 작업 1 | n8n에서 Kids_Feedback API 자동 호출 | 🟡 설계·설명 완료 (실행은 설치 후) |
-| 작업 2 | Docker로 실행환경 묶기 (Dockerfile/compose) | 🟡 파일 작성 완료 (빌드는 설치 후) |
-| 작업 3 | 전체 E2E 실행 + 3분 설명 | ⬜ 설치 후 |
+| 작업 1 | n8n에서 Kids_Feedback API 자동 호출 | 🟡 설계·설명 완료 (n8n 컨테이너 기동+GUI는 다음) |
+| **작업 2** | **Docker로 실행환경 묶기** | ✅ **빌드+실행 성공** (api 컨테이너 /health ok) |
+| 작업 3 | 전체 E2E 실행 + 3분 설명 | ⬜ (데이터 seeding / n8n 연결 후) |
+
+> ✅ **실행 결과(2026-11-08):** `docker compose up -d --build db api` → 이미지 빌드 성공,
+> `kids_feedback-api`(host 8001→컨테이너 8000) + `kids_feedback-db`(postgres:16) 기동.
+> `http://127.0.0.1:8001/health` → `{"status":"ok"}`. 컨테이너 로그에 `Application startup complete`
+> = **api 컨테이너가 db 컨테이너에 연결 성공**(env `DATABASE_URL`의 host=`db`가 작동).
+> ⚠️ 포트: 이 PC는 8000을 다른 앱이 점유 → compose에서 `8001:8000`으로 매핑.
+> ⚠️ db는 빈 상태 → `/feedbacks/generate`는 데이터 seeding 전엔 404(정상).
 
 ---
 
