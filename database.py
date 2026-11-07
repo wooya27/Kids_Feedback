@@ -18,6 +18,14 @@ DATABASE_URL = os.getenv("DATABASE_URL") or URL.create(
     database="kids_feedback_db",
 )
 
+# 클라우드(Render/Railway 등)가 주는 주소는 보통 'postgres://'로 시작하는데
+# 최신 SQLAlchemy는 이 접두어를 거부한다. psycopg2 드라이버 형태로 보정해준다.
+if isinstance(DATABASE_URL, str):
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+psycopg2://", 1)
+    elif DATABASE_URL.startswith("postgresql://"):
+        DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
+
 engine = create_engine(DATABASE_URL) # DB랑 연결하는 엔진
 
 SessionLocal = sessionmaker(      

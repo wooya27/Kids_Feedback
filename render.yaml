@@ -1,0 +1,30 @@
+# Render Blueprint — 이 파일 하나로 'API(웹서비스) + PostgreSQL(관리형 DB)'를 함께 배포한다.
+# 쓰는 법:
+#   1) 이 repo를 GitHub에 push (이미 되어 있음)
+#   2) Render 대시보드 → New → Blueprint → 이 repo 선택
+#   3) GEMINI_API_KEY 값만 직접 입력(민감정보라 repo에 안 넣음)
+#   4) Deploy → 끝나면 https://<서비스이름>.onrender.com 공개 URL 생성
+#
+# 목표: 다른 사람이 내 PC 없이도 /health, /docs, POST /feedbacks/generate 를 호출할 수 있게.
+
+databases:
+  - name: kids-feedback-db
+    databaseName: kids_feedback_db
+    user: postgres
+    plan: free          # 무료 플랜 (포트폴리오 데모용)
+
+services:
+  - type: web
+    name: kids-feedback-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    # Render는 자기가 정한 포트($PORT)로 들어온다. 고정 8000 대신 $PORT를 듣게 한다.
+    dockerCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:              # 위 DB의 접속주소를 자동 주입
+          name: kids-feedback-db
+          property: connectionString
+      - key: GEMINI_API_KEY
+        sync: false                # 민감정보: 대시보드에서 직접 입력(repo에 저장 안 함)
