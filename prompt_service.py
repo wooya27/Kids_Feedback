@@ -2,9 +2,10 @@
 #   비유: 주문서 작성
 
 
-def build_prompt(child, records):
+def build_prompt(child, records, found):
     # child   = 아이 한 명 정보 (child.name, child.age ... 점으로 꺼냄)
     # records = 그 아이의 수업기록 리스트
+    # found   = RAG가 찾아온 '관련 지도 기준' 글 (라우터에서 rag_search로 만든 것)  ← 오늘 추가한 받을 자리
 
     # ── 1) 기록 리스트를 글로 만든다 (한 기록 = 한 줄) ──
     records_text = ""
@@ -28,6 +29,9 @@ def build_prompt(child, records):
 
 [최근 수업 기록]
 {records_text}
+
+[지도 가이드]
+{found}
 
 [작성 규칙]
 1. 아이의 성향과 좋아하는 피드백 방식을 반영하세요.

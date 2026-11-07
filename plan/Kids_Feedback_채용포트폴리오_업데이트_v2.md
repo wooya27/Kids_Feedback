@@ -1,9 +1,97 @@
-# Kids_Feedback — 3일 실무기술 체험 플랜
+# Kids_Feedback — 3일 실무기술 체험 + 채용 포트폴리오 완성 플랜
 > 목표: 3일 안에 기술을 “완벽히 공부”하는 것이 아니라, **Kids_Feedback 프로젝트 안에서 실제로 실행 → 추적 → 수정 → 구현 → 설명**까지 한 번 경험한다.
+>
+> 동시에 최종 포트폴리오에서는 단순히 기술을 사용했다는 것보다 **업무 문제 → 자동화 설계 → AI 구현 → 검수 → 운영 → 평가 → 배포**까지 설명할 수 있는 결과물을 만든다.
+
+
+---
+
+# 포트폴리오 최종 포지셔닝
+
+이 프로젝트를 최종적으로 다음 한 문장으로 설명할 수 있어야 한다.
+
+> **강사가 학생별 수업 기록과 지도 기준을 반복해서 확인하며 작성하던 피드백 업무를, PostgreSQL + RAG + LangGraph + LLM + Human Review + n8n으로 자동화한 교육 피드백 생성·검수 시스템**
+
+## 해결하려는 업무 문제
+
+```text
+강사
+↓
+학생의 최근 수업 기록 확인
+↓
+이전 기록 다시 확인
+↓
+관련 지도 기준 찾기
+↓
+개별 피드백 작성
+↓
+수정
+↓
+저장
+```
+
+반복되는 조회·검색·초안 작성 때문에 시간이 오래 걸리고, 피드백 품질이 작성자와 상황에 따라 달라질 수 있다.
+
+## AS-IS → TO-BE
+
+### AS-IS
+
+```text
+수업 기록 확인
+↓
+학생 이전 기록 확인
+↓
+지도 기준 직접 검색
+↓
+피드백 직접 작성
+↓
+수정
+↓
+저장
+```
+
+### TO-BE
+
+```text
+수업 기록 ID 입력
+↓
+학생 + 최근 수업 자동 조회
+↓
+RAG로 관련 지도 기준 검색
+↓
+LLM 피드백 초안 생성
+↓
+LangGraph 검토
+↓
+Human Review
+↓
+승인 / 수정 / 거절
+↓
+DB 저장
+↓
+n8n으로 외부 시스템과 자동 연동
+```
+
+## 채용에서 보여줄 증거
+
+최종 포트폴리오에는 아래 6가지를 남긴다.
+
+```text
+1. 업무 문제를 어떻게 정의했는가
+2. 왜 RAG / LangGraph / n8n이 필요했는가
+3. 데이터가 시스템 안에서 어떻게 이동하는가
+4. 실패하면 어디서 어떻게 복구하는가
+5. 생성 결과를 사람이 어떻게 검수하는가
+6. 실제 테스트에서 얼마나 안정적으로 동작하는가
+```
+
+> `DAY 1 / DAY 2 / DAY 3` 구조는 **학습용 문서에서만 사용**한다.  
+> 최종 GitHub / Notion 포트폴리오에서는 `문제 → 설계 → 구현 → 평가 → 배포 → 결과` 순서로 보여준다.
 
 ---
 
 ## 0. 이번 3일의 학습 원칙
+
 
 ### ADHD 맞춤 규칙
 - 하루 작업은 **최대 3개**
@@ -67,7 +155,7 @@
 FastAPI /feedbacks/generate
         ↓
 PostgreSQL
-학생 + 수업기록 조회
+학생 + 최근 수업기록 조회
         ↓
        RAG
 관련 지도 기준 검색
@@ -78,19 +166,57 @@ PostgreSQL
       Gemini
 피드백 JSON 생성
         ↓
+자동 검증
+필수 필드 / 빈 값 / RAG 근거 확인
+        ↓
 PostgreSQL Feedback 저장
         ↓
    Human Review
+승인 / 수정 / 거절
+        ↓
+review_status / review_comment 저장
 
 Docker
-→ 실행 환경
+→ 실행 환경 고정
 
-Logging
-→ 처리 단계·오류 추적
+Logging + run_id
+→ 처리 단계·오류·응답시간 추적
+
+Evaluation
+→ 테스트 케이스 / 성공률 / 수정률 확인
+
+Cloud
+→ 최종 포트폴리오 단계에서 실제 URL 배포
 
 Git
 → 변경 이력
 ```
+
+## 3일과 최종 포트폴리오의 범위 구분
+
+### 3일 안에 반드시
+
+```text
+API → DB → RAG → LLM → LangGraph → DB
+n8n 호출
+Docker 실행
+Logging
+정상 / 실패 요청 확인
+3분 설명
+```
+
+### 3일 이후 포트폴리오 마감 단계에서 추가
+
+```text
+Human Review 상태 저장
+30~50개 테스트 케이스
+평가 지표
+Cloud 배포
+README / Architecture / Demo 정리
+```
+
+> 3일 안에 전부 끝내려고 하지 않는다.  
+> **3일은 구현 흐름 이해**, 그 이후는 **채용 결과물 완성** 단계다.
 
 ---
 
@@ -612,7 +738,7 @@ review
 
 처음부터 복잡한 AI 평가를 만들지 않는다.
 
-예:
+#### 3일 최소 기준
 
 ```text
 feedback 값이 존재하는가?
@@ -626,6 +752,20 @@ next_goal
 teacher_feedback
 parent_feedback
 ```
+
+#### 최종 포트폴리오 기준
+
+3일 이후에는 아래까지 확장한다.
+
+```text
+rag_context가 존재하는가?
+필수 JSON 필드가 모두 있는가?
+각 필드가 빈 문자열이 아닌가?
+생성 실패 / 파싱 실패가 발생하지 않았는가?
+```
+
+> 여기서 목표는 AI가 피드백의 “정답”을 완벽히 판정하는 것이 아니다.  
+> **시스템이 최소 품질 조건을 통과했는지 자동으로 확인하는 것**이 목적이다.
 
 ### 중요한 포인트
 
@@ -641,6 +781,46 @@ parent_feedback
 - [ ] 정상/실패를 나타내는 상태값 추가
 - [ ] Conditional Edge 1개 연결
 - [ ] 정상 입력으로 END까지 이동 확인
+
+### 포트폴리오 확장 — Human Review 기록
+
+최종 포트폴리오에서는 사람이 검수했다는 사실을 DB에 남긴다.
+
+예:
+
+```text
+review_status
+- pending
+- approved
+- edited
+- rejected
+
+review_comment
+reviewed_at
+```
+
+흐름:
+
+```text
+AI 피드백 생성
+↓
+pending
+↓
+강사 검토
+├─ 그대로 사용 → approved
+├─ 수정 후 사용 → edited
+└─ 사용하지 않음 → rejected
+```
+
+이 데이터가 쌓이면 나중에:
+
+```text
+AI 초안 승인률
+수정률
+거절률
+```
+
+을 실제 수치로 계산할 수 있다.
 
 ### 30초 설명
 
@@ -678,6 +858,29 @@ RAG search completed
 LLM generation completed
 feedback saved
 ```
+
+가능하면 각 요청에 `run_id`를 하나 붙인다.
+
+```text
+run_id
+request_started_at
+rag_completed_at
+llm_completed_at
+request_completed_at
+status
+error_stage
+```
+
+최종 포트폴리오에서는 이 로그를 이용해:
+
+```text
+평균 응답시간
+실패 단계
+재시도 횟수
+E2E 성공률
+```
+
+을 설명할 수 있게 한다.
 
 ### 오류 테스트
 
@@ -970,6 +1173,9 @@ PostgreSQL 저장
 - [ ] LangGraph review 통과
 - [ ] Feedback DB 저장
 - [ ] 로그에서 전체 흐름 확인
+- [ ] 실패 요청 1개가 의도한 단계에서 멈춤
+- [ ] 가능하면 `run_id`로 한 요청의 전체 로그를 추적
+- [ ] 응답시간을 한 번 기록
 
 ### 최종 Git 저장
 
@@ -979,13 +1185,257 @@ git commit -m "feat: add automation and container workflow"
 git push
 ```
 
+
+---
+
+# 3일 이후 — 채용 포트폴리오 마감 단계
+
+이 단계부터는 “기술을 해봤다”가 아니라 **결과를 증명한다.**
+
+## 1. 테스트 케이스 30~50개 만들기
+
+실제 개인정보가 아닌 샘플 데이터로 구성한다.
+
+예:
+
+```text
+정상 수업 기록
+최근 기록이 적은 학생
+RAG 근거가 잘 검색되는 경우
+RAG 근거가 부족한 경우
+존재하지 않는 lesson_record_id
+LLM 응답 형식이 깨진 경우
+필수 필드가 빠진 경우
+```
+
+처음에는 10개로 시작하고, 최종 제출 전 30~50개까지 늘린다.
+
+---
+
+## 2. 포트폴리오 평가 지표 만들기
+
+최소 아래 지표를 실제 실행 결과로 계산한다.
+
+```text
+1. API E2E 성공률
+2. 필수 JSON 형식 성공률
+3. RAG 검색 성공률
+4. Human Review 승인률
+5. Human Review 수정률
+6. 평균 응답시간
+```
+
+가능하면 추가:
+
+```text
+RAG 근거가 실제 생성 내용에 반영된 비율
+재시도 발생률
+실패 단계별 건수
+```
+
+> 측정하지 않은 수치를 임의로 만들지 않는다.  
+> 결과가 낮아도 `문제 → 원인 → 개선`을 설명할 수 있으면 포트폴리오 가치가 있다.
+
+---
+
+## 3. Human Review 결과를 실제 DB에 남기기
+
+최종적으로 아래 상태를 사용한다.
+
+```text
+pending
+approved
+edited
+rejected
+```
+
+필요하면 API 추가:
+
+```text
+PATCH /feedbacks/{feedback_id}/review
+```
+
+입력 예:
+
+```json
+{
+  "review_status": "edited",
+  "review_comment": "보호자용 문장을 더 쉽게 수정"
+}
+```
+
+---
+
+## 4. 운영 실패 시나리오 3개 만들기
+
+최소 3개는 README에 남긴다.
+
+```text
+CASE 1
+없는 lesson_record_id
+→ 404
+→ DB 조회 단계에서 중단
+
+CASE 2
+RAG 검색 결과 없음
+→ fallback
+→ 기본 지도 기준 또는 재검색
+
+CASE 3
+LLM 응답 형식 오류
+→ review 실패
+→ retry 또는 fallback
+```
+
+가능하면 추가:
+
+```text
+n8n → FastAPI 연결 실패
+DB 연결 실패
+외부 API timeout
+중복 요청
+```
+
+README에는 “무엇이 실패했는지”보다:
+
+```text
+어떻게 발견했는가
+어디서 멈췄는가
+어떻게 복구했는가
+```
+
+를 적는다.
+
+---
+
+## 5. Cloud 배포
+
+3일 안에는 하지 않아도 된다.
+
+최종 제출 전에는 최소 FastAPI API가 외부에서 호출되도록 만든다.
+
+후보:
+
+```text
+Render
+Railway
+Google Cloud Run
+```
+
+DB:
+
+```text
+Managed PostgreSQL
+```
+
+최종 확인:
+
+```text
+Public URL
+↓
+/health
+↓
+/docs
+↓
+POST /feedbacks/generate
+```
+
+> AWS 정식 인프라 구축이 목표가 아니다.  
+> **다른 사람이 내 PC 없이도 실행 결과를 확인할 수 있게 만드는 것**이 목표다.
+
+---
+
+## 6. 최종 README 구조
+
+최종 GitHub README에서는 `DAY 1 / DAY 2 / DAY 3`를 앞에 내세우지 않는다.
+
+```text
+# Kids Feedback
+
+1. Problem
+2. AS-IS
+3. TO-BE
+4. Architecture
+5. Data Flow
+6. Why These Technologies
+7. RAG
+8. LangGraph Workflow
+9. Human Review
+10. Error / Retry / Logging
+11. Evaluation
+12. Results
+13. Deployment
+14. Demo
+15. Limitations
+16. Next Improvements
+```
+
+### README 첫 화면에서 바로 보여줄 것
+
+```text
+문제
+↓
+한 줄 해결책
+↓
+Architecture 이미지
+↓
+실제 결과 수치
+↓
+Demo 링크
+```
+
+---
+
+## 7. 최종 포트폴리오 완료 기준
+
+```text
+[ ] 문제를 한 문장으로 설명 가능
+[ ] AS-IS / TO-BE 작성
+[ ] Architecture 작성
+[ ] API → DB → RAG → LLM → Review → DB 전체 동작
+[ ] Human Review 상태 저장
+[ ] 정상 / 실패 / fallback 케이스 확인
+[ ] 테스트 케이스 30~50개
+[ ] 평가 수치 기록
+[ ] Docker 실행
+[ ] Cloud URL 확보
+[ ] README 작성
+[ ] 30초 설명 가능
+[ ] 3분 설명 가능
+[ ] GitHub에서 다른 사람이 실행 방법을 이해할 수 있음
+```
+
 ---
 
 # 3분 프로젝트 설명 템플릿
 
+
 ## 1. 문제
 
-> 강사가 학생별 수업 피드백을 반복해서 작성해야 하는 업무를 줄이기 위해 만든 프로젝트입니다.
+> 강사가 학생별 수업 피드백을 작성할 때 최근 수업 기록을 다시 확인하고 관련 지도 기준을 찾아 초안을 작성하는 반복 업무를 줄이기 위해 만든 프로젝트입니다.
+
+### AS-IS
+
+```text
+수업 기록 확인
+→ 최근 기록 확인
+→ 지도 기준 검색
+→ 직접 작성
+→ 수정
+→ 저장
+```
+
+### TO-BE
+
+```text
+수업 기록 ID
+→ 학생/최근 기록 자동 조회
+→ RAG 검색
+→ LLM 초안
+→ LangGraph 검토
+→ Human Review
+→ 저장
+```
 
 ## 2. 데이터 흐름
 
@@ -1040,6 +1490,34 @@ DB 저장
 ### Logging
 > 요청이 어느 단계까지 처리됐고 어디서 실패했는지 추적하기 위해 사용했습니다.
 
+### Human Review
+> AI가 만든 피드백을 자동으로 바로 확정하지 않고, 강사가 승인·수정·거절할 수 있도록 최종 판단 단계를 분리했습니다.
+
+## 4. 결과
+
+최종 포트폴리오에서는 실제 측정한 숫자로 채운다.
+
+```text
+테스트 케이스: __건
+API E2E 성공률: __%
+JSON 형식 성공률: __%
+RAG 검색 성공률: __%
+Human Review 승인률: __%
+Human Review 수정률: __%
+평균 응답시간: __초
+```
+
+## 5. 한계와 다음 개선
+
+예:
+
+```text
+실제 교육 현장 데이터가 아닌 샘플 데이터 기반
+RAG 평가 데이터 규모가 작음
+사용자 피드백 데이터가 아직 적음
+추후 실제 사용자 평가와 더 큰 테스트셋 필요
+```
+
 ---
 
 # 3일 후 “해봤다” 기준
@@ -1064,6 +1542,9 @@ DB 저장
 [ ] Docker로 FastAPI를 실행했다.
 [ ] Git commit / push를 했다.
 [ ] 전체 시스템을 3분 안에 설명했다.
+[ ] 정상 요청과 실패 요청의 차이를 설명할 수 있다.
+[ ] 내가 직접 바꾼 코드와 이유를 설명할 수 있다.
+[ ] 최종 포트폴리오에서 추가할 평가/배포 항목을 구분할 수 있다.
 ```
 
 ---
@@ -1077,13 +1558,15 @@ LangGraph 고급 기능
 멀티 Agent
 Kubernetes
 React UI
-AWS 정식 배포
+AWS 정식 인프라 구축
 대규모 모니터링
 성능 최적화
 완벽한 pgVector 전환
 ```
 
 이건 나중에 한다.
+
+단, **간단한 Cloud 배포(Render / Railway / Cloud Run 등)** 는 3일 학습이 끝난 뒤 포트폴리오 마감 단계에서 진행한다.
 
 이번 목표는:
 

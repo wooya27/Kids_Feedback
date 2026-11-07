@@ -39,15 +39,15 @@
         2. `from rag import rag_service`(파일 통째) vs `from rag.rag_service import rag_search`(함수만) 차이
         - 외울 것: **호출 = 이름 + 괄호. 한 몸.**
 
-### 🔴 여기서 멈춤 (집중력 바닥) — 다음에 이어서
-- [ ] `build_prompt(child, records)` 에 `found` 받을 자리 하나 추가 (`def build_prompt(child, records, found)`)
-- [ ] 프롬프트의 `[작성 규칙]` 위에 `[지도 가이드]` 칸 만들고 `{found}` 끼워넣기
-- [ ] 라우터 40번 줄도 같이 고치기: `build_prompt(child, records, found)`
+### ✅ 닫음 (2026-11-08, 채용포폴 v2 DAY1 작업3) — study/채용포폴_DAY1.md
+- [x] `build_prompt(child, records)` 에 `found` 받을 자리 하나 추가 (`def build_prompt(child, records, found)`)
+- [x] 프롬프트의 `[작성 규칙]` 위에 `[지도 가이드]` 칸 만들고 `{found}` 끼워넣기
+- [x] 라우터 40번 줄도 같이 고치기: `build_prompt(child, records, found)`
       - ⚠️ 파일 2개를 **동시에** 고쳐야 함 (한 쪽만 고치면 `TypeError: 인자 개수 안 맞음`)
-- ℹ️ 지금 에디터의 `"found" is not accessed` 경고는 정상 — 위 3줄 하면 사라짐
-- [ ] Swagger `/feedbacks/generate` 로 테스트 → RAG 자료가 반영된 피드백 나오는지 확인
-- [ ] 결과 확인: RAG 붙이기 전/후 피드백이 달라지는지 비교 ✅
-- 끝나면: study/day10.md 에 "웹 통합" 파트 추가 + 커밋·푸시
+- [x] `/feedbacks/generate` 실제 호출 성공 (id:6 DB저장, 3필드 생성) — 서버는 `uvicorn api.main:app --port 8001`
+      - ⚠️ main.py가 api/ 폴더로 이동됨 → 실행 명령 `api.main:app`로 바뀜 (루트 `main:app` 아님)
+      - ⚠️ 8000번은 다른 프로젝트(audit) 서버가 점유 중 → 우리는 8001 사용
+- [ ] 끝나면: 커밋 `git commit -m "feat: connect RAG context to feedback prompt"`
 
 ## 📅 내일 — Day 11 준비: Streamlit "개념만" 보기 (코드 X, 30분)
 > ⚠️ 새 기술(처음 배움). 내일은 **화면 만들기 전에 개념·감만 잡는 세션.** 코드는 그다음.

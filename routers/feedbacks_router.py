@@ -36,8 +36,8 @@ def generate_feedback_endpoint(payload: FeedbackGenerate, db: Session = Depends(
     records = db.query(LessonRecord).filter(LessonRecord.child_id == child.id).order_by(desc(LessonRecord.lesson_date)).limit(5).all()
 
     # ── 여기 빈칸 2개를 네가 채워 (함수 호출 연습!) ──
-    # 4) 프롬프트 조립: build_prompt에 아이(child)랑 기록들(records)을 넘겨라
-    prompt = build_prompt(child, records)
+    # 4) 프롬프트 조립: build_prompt에 아이(child)랑 기록들(records) + 오늘 RAG로 찾은 found 를 넘겨라
+    prompt = build_prompt(child, records, found)
 
 
     # 5) LLM 호출: generate_feedback에 위에서 만든 prompt를 넘겨라
