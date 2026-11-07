@@ -12,7 +12,7 @@
 
 | 작업 | 내용 | 상태 |
 |---|---|---|
-| 작업 1 | n8n에서 Kids_Feedback API 자동 호출 | 🟡 n8n 컨테이너 기동 완료(5679), GUI 워크플로 작성만 남음 |
+| **작업 1** | **n8n에서 Kids_Feedback API 자동 호출** | ✅ **워크플로 실행 성공** (n8n→FastAPI POST→피드백 반환) |
 | **작업 2** | **Docker로 실행환경 묶기** | ✅ **빌드+실행 성공** (api 컨테이너 /health ok) |
 | **작업 3** | **전체 E2E 실행** | ✅ **컨테이너에서 피드백 생성 완주** (id=1, elapsed 14.55s) |
 
@@ -93,19 +93,34 @@ docker compose up --build       # 빌드 + 실행
 [후]  Webhook → n8n → HTTP Request → FastAPI → 피드백 생성
 ```
 
-### n8n 최소 워크플로 (설치 후 만들 것)
+### n8n 최소 워크플로 (= `n8n_workflow.json`)
 ```
-Node 1: Webhook        (어떤 사건이 발생했음을 받는 입구)
-Node 2: HTTP Request   (n8n이 FastAPI에게 일을 요청)
+Node 1: Manual Trigger   (실행 버튼. Webhook으로 바꾸면 "자동 트리거"가 됨)
+Node 2: HTTP Request      (n8n이 FastAPI에게 일을 요청)
   - Method: POST
-  - URL: http://api:8000/feedbacks/generate   (Docker면 'api', 로컬이면 'localhost:8000')
+  - URL: http://api:8000/feedbacks/generate   ← Docker 내부망이라 'api'(서비스명), 'localhost' 아님
   - Body(JSON): { "lesson_record_id": 1 }
 ```
 
-### 완료 기준 (설치 후)
-- [ ] n8n Workflow 실행
-- [ ] n8n에서 FastAPI POST 호출
-- [ ] 피드백 결과가 n8n에 돌아옴
+### 실행 방법 2가지
+- **GUI:** `http://localhost:5679` → 워크플로 열기 → Execute. (HTTP Request 노드 출력에 피드백 JSON)
+- **CLI(헤드리스, 오늘 사용):**
+  ```bash
+  docker compose cp n8n_workflow.json n8n:/tmp/wf.json
+  MSYS_NO_PATHCONV=1 docker compose exec n8n n8n import:workflow --input=/tmp/wf.json
+  docker compose exec n8n n8n list:workflow            # id 확인
+  docker compose exec -e N8N_RUNNERS_BROKER_PORT=5690 n8n n8n execute --id=<워크플로id>
+  ```
+
+### 완료 기준
+- [x] n8n Workflow 실행 (status: success)
+- [x] n8n에서 FastAPI POST 호출 (HTTP Request → http://api:8000)
+- [x] 피드백 결과가 n8n에 돌아옴 (teacher/parent_feedback JSON)
+
+### 🐞 n8n CLI 함정 (오늘 겪은 것)
+- `/tmp/wf.json`이 Git Bash에서 윈도우 경로로 변환됨 → `MSYS_NO_PATHCONV=1` 로 끔.
+- `n8n execute --file`은 이 버전(2.46)에서 미지원 → **import 후 `--id`** 로 실행.
+- CLI가 task broker 포트(5679)를 기존 n8n과 충돌 → `N8N_RUNNERS_BROKER_PORT=5690` 로 분리.
 
 ---
 

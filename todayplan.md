@@ -12,7 +12,10 @@
       - ⚠️ 8000 점유(다른 앱) → 8001:8000 매핑 / db 빈상태라 generate는 seeding 전 404
 - [x] **DAY3 작업3** — 컨테이너 E2E 완주: seed→/feedbacks/generate→RAG반영 피드백 저장(id=1, 14.55s)
       - 🐞 Docker가 잡은 버그: google-genai 3.x는 기본 v1 → JSON모드 실패 → `http_options={"api_version":"v1beta"}`로 해결
-- [🟡] **DAY3 작업1** — n8n 컨테이너 기동(5679) 완료. GUI 워크플로(Webhook→HTTP Request http://api:8000)만 남음
+- [x] **DAY3 작업1** — n8n 워크플로 실행 성공 (n8n→FastAPI POST→피드백 반환, status success). 파일: n8n_workflow.json
+      - 🐞 CLI 함정: MSYS 경로변환(MSYS_NO_PATHCONV=1) / execute는 import후 --id / broker포트 5690 분리
+- ✅ **v2 플랜 DAY1~3 구현·실행 전부 완료** (API→DB→RAG→LLM→LangGraph→Logging→Docker→n8n)
+- [ ] **마감단계** — 테스트케이스 30~50 / 평가지표 수치화 / Cloud배포 / README / AX·DX 포지셔닝 / 3분 스크립트
 - [ ] **마감단계** — 테스트케이스 30~50 / 평가지표 / Cloud배포 / README / AX·DX 포지셔닝 문서
 - 🎯 목표 직무: **AI 자동화 / AX·DX 실무** → 수치(시간절감) + 운영설계(Human Review·실패복구) + n8n 자동화 어필
 - 📝 TODO(마감단계): AX·DX용 포트폴리오 포지셔닝 문서 따로 작성
