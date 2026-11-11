@@ -93,7 +93,8 @@ docker compose exec api python evaluate.py                    # API 35회 지표
 - **평가:**
   - RAG 검색(2026-11-12 실측, 48문항): 긍정 42문항 **Hit@1 100% · Hit@3 100%**, 부정 안전처리 **83.3%**(5/6).
     ⚠️ 문서·질문을 동일인이 작성한 **자체 평가라 과대평가 가능** — 반드시 이 한계와 함께 해석(상세·실패사례: `docs/rag_evaluation.md`).
-  - API 35회(`metrics.json`)·RAG 전/후 품질(`docs/rag_quality_comparison.md`)은 실행 후 수치 기재(측정 예정).
+  - API 35회(2026-11-12 실측, `metrics.json`): E2E 성공 **100%**, JSON 형식 **100%**, 에러처리 **100%**, 평균 응답 **14.55s**/p95 **18.62s**. ⚠️ '유사도 임계값 통과율'은 정답률 아님, Human Review 수치는 **규칙 기반 시뮬레이션**(상세: `docs/evaluation.md`).
+  - RAG 전/후 품질(`evals/rag_variant_outputs.json`): 합성 3명 A(미사용)/B(Top-1)/C(Top-3) 생성 비교 — 성향별 올바른 문서 검색 확인. 1~5점 품질 채점은 `docs/rag_quality_comparison.md`.
 
 ## 9. 한계 (정직하게)
 - 지도 문서는 **전문가 검증 전 자체 작성 가이드**. 공식 지도 규정 아님.

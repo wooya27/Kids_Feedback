@@ -1,0 +1,387 @@
+{
+  "metrics": {
+    "generated_at": "2026-11-11T18:16:23.481850+00:00",
+    "total_cases": 35,
+    "valid_cases": 30,
+    "error_cases": 5,
+    "api_e2e_success_rate": 100.0,
+    "json_format_success_rate": 100.0,
+    "similarity_threshold_pass_rate": 100.0,
+    "similarity_threshold_pass_rate_note": "유사도 임계값 통과율(정답률 아님). 정답률은 Hit@k(evals/) 참고.",
+    "rag_threshold": 0.7,
+    "rag_sim_min": 0.7882,
+    "rag_sim_max": 0.8752,
+    "rag_sim_avg": 0.8246,
+    "avg_response_sec": 14.55,
+    "median_response_sec": 14.8,
+    "p95_response_sec": 18.62,
+    "human_review_simulated": true,
+    "human_review_note": "실제 강사 검수가 아니라 규칙 기반 시뮬레이션(simulated_review)임.",
+    "review_approved_rate": 100.0,
+    "review_edited_rate": 0.0,
+    "review_rejected_rate": 0.0,
+    "error_handling_rate": 100.0
+  },
+  "rows": [
+    {
+      "kind": "valid",
+      "lesson_record_id": 1,
+      "status": 200,
+      "elapsed": 14.96,
+      "fields_ok": true,
+      "rag_sim": 0.8224,
+      "rag_ok": true,
+      "feedback_id": 21,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 2,
+      "status": 200,
+      "elapsed": 16.02,
+      "fields_ok": true,
+      "rag_sim": 0.8292,
+      "rag_ok": true,
+      "feedback_id": 26,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 3,
+      "status": 200,
+      "elapsed": 15.68,
+      "fields_ok": true,
+      "rag_sim": 0.8576,
+      "rag_ok": true,
+      "feedback_id": 32,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 4,
+      "status": 200,
+      "elapsed": 15.43,
+      "fields_ok": true,
+      "rag_sim": 0.8331,
+      "rag_ok": true,
+      "feedback_id": 36,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 5,
+      "status": 200,
+      "elapsed": 10.23,
+      "fields_ok": true,
+      "rag_sim": 0.8336,
+      "rag_ok": true,
+      "feedback_id": 37,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 6,
+      "status": 200,
+      "elapsed": 16.13,
+      "fields_ok": true,
+      "rag_sim": 0.833,
+      "rag_ok": true,
+      "feedback_id": 42,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 7,
+      "status": 200,
+      "elapsed": 15.95,
+      "fields_ok": true,
+      "rag_sim": 0.8355,
+      "rag_ok": true,
+      "feedback_id": 47,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 8,
+      "status": 200,
+      "elapsed": 10.79,
+      "fields_ok": true,
+      "rag_sim": 0.8174,
+      "rag_ok": true,
+      "feedback_id": 50,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 9,
+      "status": 200,
+      "elapsed": 17.09,
+      "fields_ok": true,
+      "rag_sim": 0.8201,
+      "rag_ok": true,
+      "feedback_id": 54,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 10,
+      "status": 200,
+      "elapsed": 12.74,
+      "fields_ok": true,
+      "rag_sim": 0.8752,
+      "rag_ok": true,
+      "feedback_id": 59,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 11,
+      "status": 200,
+      "elapsed": 15.79,
+      "fields_ok": true,
+      "rag_sim": 0.8013,
+      "rag_ok": true,
+      "feedback_id": 62,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 12,
+      "status": 200,
+      "elapsed": 14.63,
+      "fields_ok": true,
+      "rag_sim": 0.826,
+      "rag_ok": true,
+      "feedback_id": 68,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 13,
+      "status": 200,
+      "elapsed": 16.35,
+      "fields_ok": true,
+      "rag_sim": 0.8427,
+      "rag_ok": true,
+      "feedback_id": 70,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 14,
+      "status": 200,
+      "elapsed": 11.3,
+      "fields_ok": true,
+      "rag_sim": 0.7903,
+      "rag_ok": true,
+      "feedback_id": 74,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 15,
+      "status": 200,
+      "elapsed": 16.12,
+      "fields_ok": true,
+      "rag_sim": 0.8006,
+      "rag_ok": true,
+      "feedback_id": 78,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 16,
+      "status": 200,
+      "elapsed": 21.29,
+      "fields_ok": true,
+      "rag_sim": 0.7941,
+      "rag_ok": true,
+      "feedback_id": 85,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 17,
+      "status": 200,
+      "elapsed": 12.27,
+      "fields_ok": true,
+      "rag_sim": 0.809,
+      "rag_ok": true,
+      "feedback_id": 89,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 18,
+      "status": 200,
+      "elapsed": 11.88,
+      "fields_ok": true,
+      "rag_sim": 0.8447,
+      "rag_ok": true,
+      "feedback_id": 92,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 19,
+      "status": 200,
+      "elapsed": 13.56,
+      "fields_ok": true,
+      "rag_sim": 0.8109,
+      "rag_ok": true,
+      "feedback_id": 96,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 20,
+      "status": 200,
+      "elapsed": 12.23,
+      "fields_ok": true,
+      "rag_sim": 0.7882,
+      "rag_ok": true,
+      "feedback_id": 98,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 21,
+      "status": 200,
+      "elapsed": 15.09,
+      "fields_ok": true,
+      "rag_sim": 0.7898,
+      "rag_ok": true,
+      "feedback_id": 101,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 1,
+      "status": 200,
+      "elapsed": 13.02,
+      "fields_ok": true,
+      "rag_sim": 0.8224,
+      "rag_ok": true,
+      "feedback_id": 105,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 2,
+      "status": 200,
+      "elapsed": 12.71,
+      "fields_ok": true,
+      "rag_sim": 0.8292,
+      "rag_ok": true,
+      "feedback_id": 107,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 3,
+      "status": 200,
+      "elapsed": 15.44,
+      "fields_ok": true,
+      "rag_sim": 0.8576,
+      "rag_ok": true,
+      "feedback_id": 111,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 4,
+      "status": 200,
+      "elapsed": 18.62,
+      "fields_ok": true,
+      "rag_sim": 0.8331,
+      "rag_ok": true,
+      "feedback_id": 115,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 5,
+      "status": 200,
+      "elapsed": 14.28,
+      "fields_ok": true,
+      "rag_sim": 0.8336,
+      "rag_ok": true,
+      "feedback_id": 116,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 6,
+      "status": 200,
+      "elapsed": 14.54,
+      "fields_ok": true,
+      "rag_sim": 0.833,
+      "rag_ok": true,
+      "feedback_id": 117,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 7,
+      "status": 200,
+      "elapsed": 13.85,
+      "fields_ok": true,
+      "rag_sim": 0.8355,
+      "rag_ok": true,
+      "feedback_id": 118,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 8,
+      "status": 200,
+      "elapsed": 13.29,
+      "fields_ok": true,
+      "rag_sim": 0.8174,
+      "rag_ok": true,
+      "feedback_id": 119,
+      "review": "approved"
+    },
+    {
+      "kind": "valid",
+      "lesson_record_id": 9,
+      "status": 200,
+      "elapsed": 15.22,
+      "fields_ok": true,
+      "rag_sim": 0.8201,
+      "rag_ok": true,
+      "feedback_id": 120,
+      "review": "approved"
+    },
+    {
+      "kind": "error",
+      "lesson_record_id": 999999,
+      "status": 404,
+      "handled": true
+    },
+    {
+      "kind": "error",
+      "lesson_record_id": 0,
+      "status": 404,
+      "handled": true
+    },
+    {
+      "kind": "error",
+      "lesson_record_id": -1,
+      "status": 404,
+      "handled": true
+    },
+    {
+      "kind": "error",
+      "lesson_record_id": 888888,
+      "status": 404,
+      "handled": true
+    },
+    {
+      "kind": "error",
+      "lesson_record_id": 123456,
+      "status": 404,
+      "handled": true
+    }
+  ]
+}
