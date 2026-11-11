@@ -14,3 +14,8 @@ dependencies = [
     "tenacity<9.2.0",
     "ruff>=0.15.18",
 ]
+
+[tool.pytest.ini_options]
+# 프로젝트 루트를 import 경로에 넣어 tests/에서 `import database` 등이 되게 한다.
+pythonpath = ["."]
+testpaths = ["tests"]

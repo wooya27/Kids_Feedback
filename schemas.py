@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 
 from datetime import date, datetime
@@ -71,9 +71,34 @@ class FeedbackGenerate(BaseModel):   # 형제 1 (입력용): 왼쪽 끝
     lesson_record_id: int
 
 
+class FeedbackLLMOut(BaseModel):
+    """LLM(Gemini)이 돌려준 JSON을 '저장해도 되는 품질'인지 검사하는 관문.
+    - 세 필드가 모두 있어야 하고(필수 필드 누락 차단)
+    - 각 필드는 문자열이어야 하며(타입 오류 차단)
+    - 공백만 있거나 빈 문자열이면 거절한다(빈 값 차단).
+    model_validate()에서 걸리면 ValidationError가 나고,
+    graph.generate가 그걸 잡아 '검증 실패'로 처리한다 → DB 저장 안 됨.
+    """
+    next_goal: str
+    teacher_feedback: str
+    parent_feedback: str
+
+    @field_validator("next_goal", "teacher_feedback", "parent_feedback")
+    @classmethod
+    def not_blank(cls, v: str) -> str:
+        # pydantic이 타입(str) 검사는 이미 해줌. 여기선 '내용이 비었는가'를 추가로 막는다.
+        if v is None or not str(v).strip():
+            raise ValueError("빈 문자열/공백만 있음")
+        return str(v).strip()
+
+
 class FeedbackReviewUpdate(BaseModel):   # 강사가 검수 결과를 보낼 때 쓰는 입력
     review_status: str                   # approved / edited / rejected
     review_comment: Optional[str] = None # 수정/거절 이유 메모 (선택)
+    # edited 상태일 때 강사가 고친 본문(원본은 그대로 보존됨). 최소 1개는 채워야 함.
+    edited_next_goal: Optional[str] = None
+    edited_teacher_feedback: Optional[str] = None
+    edited_parent_feedback: Optional[str] = None
 
 
 class FeedbackResponse(BaseModel):   # 형제 2 (응답용): 왼쪽 끝
@@ -84,6 +109,11 @@ class FeedbackResponse(BaseModel):   # 형제 2 (응답용): 왼쪽 끝
     teacher_feedback: str
     parent_feedback: str
     created_at: datetime
+
+    # 강사가 수정한 본문(원본과 별도). edited가 아니면 None.
+    edited_next_goal: Optional[str] = None
+    edited_teacher_feedback: Optional[str] = None
+    edited_parent_feedback: Optional[str] = None
 
     # Human Review 결과도 응답에 같이 보여준다
     review_status: str

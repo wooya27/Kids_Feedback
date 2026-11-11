@@ -17,22 +17,39 @@
     },
     {
       "parameters": {
+        "jsCode": "// 외부에서 POST로 들어온 body.lesson_record_id 를 검사하고 정규화한다.\n// 누락/빈값/정수가 아니면 여기서 에러를 던져 HTTP Request까지 가지 않게 막는다.\nconst body = ($input.first().json.body) || {};\nlet id = body.lesson_record_id;\n\nif (id === undefined || id === null || id === '') {\n  throw new Error('lesson_record_id is required');\n}\nid = Number(id);\nif (!Number.isInteger(id) || id <= 0) {\n  throw new Error('lesson_record_id must be a positive integer');\n}\nreturn [{ json: { lesson_record_id: id } }];"
+      },
+      "id": "55555555-5555-5555-5555-555555555555",
+      "name": "Validate lesson_record_id",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
         "method": "POST",
         "url": "http://api:8000/feedbacks/generate",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{ \"lesson_record_id\": 1 }",
+        "jsonBody": "={ \"lesson_record_id\": {{ $json.lesson_record_id }} }",
         "options": {}
       },
       "id": "44444444-4444-4444-4444-444444444444",
       "name": "Call Kids_Feedback API",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [240, 0]
+      "position": [480, 0]
     }
   ],
   "connections": {
     "Webhook": {
+      "main": [
+        [
+          { "node": "Validate lesson_record_id", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Validate lesson_record_id": {
       "main": [
         [
           { "node": "Call Kids_Feedback API", "type": "main", "index": 0 }
@@ -42,5 +59,5 @@
   },
   "active": true,
   "settings": {},
-  "versionId": "00000000-0000-0000-0000-000000000001"
+  "versionId": "00000000-0000-0000-0000-000000000002"
 }

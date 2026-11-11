@@ -49,10 +49,18 @@ class Feedback(Base):
     child_id = Column(Integer, ForeignKey("children.id"), nullable=False)
     lesson_record_id = Column(Integer, ForeignKey("lesson_records.id"), nullable=False)
 
+    # ── AI 원본 초안 (절대 덮어쓰지 않고 보존) ──
     next_goal = Column(Text, nullable=True)
     teacher_feedback = Column(Text, nullable=True)
     parent_feedback = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    # ── 강사가 수정한 본문 (edited 상태일 때 채워짐, 원본과 별도 보관) ──
+    # 원본(next_goal 등)은 그대로 두고, 수정본은 여기에 저장한다.
+    # 최종본(final) = approved면 원본, edited면 수정본, rejected면 없음.
+    edited_next_goal = Column(Text, nullable=True)
+    edited_teacher_feedback = Column(Text, nullable=True)
+    edited_parent_feedback = Column(Text, nullable=True)
 
     # ── Human Review (사람 검수 결과) ──
     # AI가 만든 초안을 강사가 보고 내린 판단을 여기에 남긴다.

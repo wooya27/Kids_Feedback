@@ -14,6 +14,7 @@
 
 import json
 import time
+import statistics
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -99,7 +100,12 @@ def main():
     print(f"\n유효 케이스 {len(valid_cases)}건 생성 시작 (반복 {REPEAT_FIRST_N} 포함)...")
     for i, rid in enumerate(valid_cases, 1):
         t0 = time.perf_counter()
-        status, body = post_json("/feedbacks/generate", {"lesson_record_id": rid})
+        try:
+            status, body = post_json("/feedbacks/generate", {"lesson_record_id": rid})
+        except Exception as e:
+            # 한 건 실패로 전체 평가가 멈추지 않도록 실패도 기록하고 계속 진행
+            status, body = None, None
+            print(f"  [경고] 요청 실패 rid={rid}: {type(e).__name__} {e}")
         elapsed = time.perf_counter() - t0
         fields_ok = bool(body) and all(body.get(k) for k in REQUIRED)
         sim = sim_cache.get(rid)
@@ -135,7 +141,12 @@ def main():
     e2e = sum(1 for r in valid if r["status"] == 200 and r["fields_ok"])
     jsonok = sum(1 for r in valid if r["fields_ok"])
     ragok = sum(1 for r in valid if r["rag_ok"])
-    avg_elapsed = sum(r["elapsed"] for r in valid) / n if n else 0
+    elapseds = [r["elapsed"] for r in valid]
+    avg_elapsed = sum(elapseds) / n if n else 0
+    median_elapsed = statistics.median(elapseds) if elapseds else 0
+    # p95: 하위 95% 지점 (작은 표본에서도 안전하게 인덱스로 계산)
+    p95_elapsed = (sorted(elapseds)[min(len(elapseds) - 1, int(round(0.95 * (len(elapseds) - 1))))]
+                   if elapseds else 0)
     reviews = [r.get("review") for r in valid if r.get("review")]
     approved = reviews.count("approved")
     edited = reviews.count("edited")
@@ -154,13 +165,19 @@ def main():
         "error_cases": len(errs),
         "api_e2e_success_rate": pct(e2e, n),
         "json_format_success_rate": pct(jsonok, n),
-        "rag_search_success_rate": pct(ragok, n),
+        # ⚠️ 이름 바로잡음: 이건 '정답률'이 아니라 '유사도 임계값(0.70) 통과율'이다.
+        #    실제 검색 정답률(Hit@k)은 evals/evaluate_retrieval.py 에서 정답셋으로 따로 측정한다.
+        "similarity_threshold_pass_rate": pct(ragok, n),
+        "similarity_threshold_pass_rate_note": "유사도 임계값 통과율(정답률 아님). 정답률은 Hit@k(evals/) 참고.",
         "rag_threshold": RAG_THRESHOLD,
         "rag_sim_min": round(min(sims), 4) if sims else None,
         "rag_sim_max": round(max(sims), 4) if sims else None,
         "rag_sim_avg": round(sum(sims) / len(sims), 4) if sims else None,
         "avg_response_sec": round(avg_elapsed, 2),
+        "median_response_sec": round(median_elapsed, 2),
+        "p95_response_sec": round(p95_elapsed, 2),
         "human_review_simulated": True,
+        "human_review_note": "실제 강사 검수가 아니라 규칙 기반 시뮬레이션(simulated_review)임.",
         "review_approved_rate": pct(approved, nr),
         "review_edited_rate": pct(edited, nr),
         "review_rejected_rate": pct(rejected, nr),

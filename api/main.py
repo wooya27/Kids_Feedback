@@ -27,6 +27,10 @@ def _ensure_review_columns():
         "ALTER TABLE feedbacks ADD COLUMN IF NOT EXISTS review_status VARCHAR(20) NOT NULL DEFAULT 'pending'",
         "ALTER TABLE feedbacks ADD COLUMN IF NOT EXISTS review_comment TEXT",
         "ALTER TABLE feedbacks ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ",
+        # P1-3: 강사 수정 본문(원본과 별도 보관)
+        "ALTER TABLE feedbacks ADD COLUMN IF NOT EXISTS edited_next_goal TEXT",
+        "ALTER TABLE feedbacks ADD COLUMN IF NOT EXISTS edited_teacher_feedback TEXT",
+        "ALTER TABLE feedbacks ADD COLUMN IF NOT EXISTS edited_parent_feedback TEXT",
     ]
     with engine.begin() as conn:  # begin() = 자동 커밋되는 트랜잭션
         for s in stmts:
