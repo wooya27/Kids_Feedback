@@ -7,3 +7,5 @@ python-dotenv
 google-genai
 langgraph
 tenacity<9.2.0         # google-genai 호환 (langgraph가 올리는 최신과 충돌 방지)
+streamlit             # 강사용 UI (streamlit_app.py) — 호스트에서 별도 실행
+httpx                 # UI가 API를 호출할 때 사용

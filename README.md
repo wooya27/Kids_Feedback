@@ -72,7 +72,11 @@ curl http://localhost:8001/health
 docker compose exec api python -m rag.build_index
 #    키 없이 청킹만 점검:  python -m rag.build_index --report-only
 
-# 4) 테스트 (키 불필요: SQLite + LLM Mock)
+# 4) 강사용 UI (Streamlit) — 호스트에서 실행, 위 API(8001)에 붙음
+.venv/Scripts/python.exe -m streamlit run streamlit_app.py   # → http://localhost:8501
+#   아이 선택 → 프로필 → 수업기록 → 피드백 생성 → Top-3 근거 → 강사 검수 → 최종본
+
+# 5) 테스트 (키 불필요: SQLite + LLM Mock)
 python -m pytest -q
 
 # 5) 평가 (키 필요, 테스트DB에서만)

@@ -1,0 +1,5 @@
+# Streamlit 외형 설정 (CSS 대신 config로 — 권장 방식)
+[theme]
+primaryColor = "#2f7d4f"
+baseRadius = "0.6rem"
+showWidgetBorder = true
