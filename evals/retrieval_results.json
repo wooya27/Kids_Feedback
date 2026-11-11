@@ -1,0 +1,1130 @@
+{
+  "summary": {
+    "generated_at": "2026-11-11T16:49:39.008026+00:00",
+    "index_scope": "2026-11-12 신규 15문서 인덱스. 옛 1문서 인덱스와 섞어 비교하지 말 것.",
+    "positive_count": 42,
+    "negative_count": 6,
+    "hit@1_rate": 100.0,
+    "hit@3_rate": 100.0,
+    "per_category": {
+      "상황별": {
+        "n": 10,
+        "hit@1": 100.0,
+        "hit@3": 100.0
+      },
+      "성장목표": {
+        "n": 5,
+        "hit@1": 100.0,
+        "hit@3": 100.0
+      },
+      "성향별": {
+        "n": 20,
+        "hit@1": 100.0,
+        "hit@3": 100.0
+      },
+      "학부모소통": {
+        "n": 7,
+        "hit@1": 100.0,
+        "hit@3": 100.0
+      }
+    },
+    "negative_handled_rate": 83.3,
+    "failure_ids": []
+  },
+  "rows": [
+    {
+      "id": "q01",
+      "category": "성향별",
+      "type": "positive",
+      "question": "소심한 아이가 계속 실패하다 드디어 성공했을 때 어떻게 칭찬하나요?",
+      "gold": [
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "retrieved": [
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/상황_반복실패_대응.md"
+      ],
+      "scores": [
+        0.8766,
+        0.8188,
+        0.7941
+      ],
+      "best_score": 0.8766,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q02",
+      "category": "성향별",
+      "type": "positive",
+      "question": "위축된 아이가 '저 못해요'라고 했다가 결국 해냈을 때 뭐라고 말해줄까요?",
+      "gold": [
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "retrieved": [
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/상황_반복실패_대응.md"
+      ],
+      "scores": [
+        0.9264,
+        0.832,
+        0.79
+      ],
+      "best_score": 0.9264,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q03",
+      "category": "성향별",
+      "type": "positive",
+      "question": "낯가리는 아이를 칭찬할 때 다른 아이들 앞에서 해도 되나요?",
+      "gold": [
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "retrieved": [
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/위축형_적극성.md"
+      ],
+      "scores": [
+        0.8902,
+        0.7571,
+        0.7485
+      ],
+      "best_score": 0.8902,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q04",
+      "category": "성향별",
+      "type": "positive",
+      "question": "손을 안 들고 가만히 있는 소극적인 아이를 어떻게 참여시키나요?",
+      "gold": [
+        "rag_docs/위축형_적극성.md"
+      ],
+      "retrieved": [
+        "rag_docs/위축형_적극성.md",
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/위축형_적극성.md"
+      ],
+      "scores": [
+        0.8485,
+        0.7973,
+        0.7945
+      ],
+      "best_score": 0.8485,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q05",
+      "category": "성향별",
+      "type": "positive",
+      "question": "부끄러워하는 아이에게 발표를 어떻게 유도하면 좋을까요?",
+      "gold": [
+        "rag_docs/위축형_적극성.md"
+      ],
+      "retrieved": [
+        "rag_docs/위축형_적극성.md",
+        "rag_docs/위축형_적극성.md",
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "scores": [
+        0.878,
+        0.7831,
+        0.777
+      ],
+      "best_score": 0.878,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q06",
+      "category": "성향별",
+      "type": "positive",
+      "question": "모둠 활동에서 자꾸 뒤로 빠지는 아이는 어떻게 참여시키나요?",
+      "gold": [
+        "rag_docs/위축형_적극성.md"
+      ],
+      "retrieved": [
+        "rag_docs/위축형_적극성.md",
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/위축형_적극성.md"
+      ],
+      "scores": [
+        0.8602,
+        0.7863,
+        0.7773
+      ],
+      "best_score": 0.8602,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q07",
+      "category": "성향별",
+      "type": "positive",
+      "question": "경쟁심 강한 아이가 시합에서 졌을 때 어떻게 말해주나요?",
+      "gold": [
+        "rag_docs/승부욕형_훈육법.md"
+      ],
+      "retrieved": [
+        "rag_docs/승부욕형_훈육법.md",
+        "rag_docs/승부욕형_훈육법.md",
+        "rag_docs/상황_반복실패_대응.md"
+      ],
+      "scores": [
+        0.8531,
+        0.8191,
+        0.7739
+      ],
+      "best_score": 0.8531,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q08",
+      "category": "성향별",
+      "type": "positive",
+      "question": "지고 나서 울거나 화내는 아이를 어떻게 달래나요?",
+      "gold": [
+        "rag_docs/승부욕형_훈육법.md"
+      ],
+      "retrieved": [
+        "rag_docs/승부욕형_훈육법.md",
+        "rag_docs/승부욕형_훈육법.md",
+        "rag_docs/상황_또래갈등_대응.md"
+      ],
+      "scores": [
+        0.8492,
+        0.7947,
+        0.7394
+      ],
+      "best_score": 0.8492,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q09",
+      "category": "성향별",
+      "type": "positive",
+      "question": "이기려고 규칙을 어기는 아이에게 어떻게 선을 그어주나요?",
+      "gold": [
+        "rag_docs/승부욕형_훈육법.md"
+      ],
+      "retrieved": [
+        "rag_docs/승부욕형_훈육법.md",
+        "rag_docs/상황_순서기다리기.md",
+        "rag_docs/상황_또래갈등_대응.md"
+      ],
+      "scores": [
+        0.8655,
+        0.7684,
+        0.7441
+      ],
+      "best_score": 0.8655,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q10",
+      "category": "성향별",
+      "type": "positive",
+      "question": "눈에 띄지도 뒤처지지도 않는 평범한 아이를 어떻게 성장시키나요?",
+      "gold": [
+        "rag_docs/평범형_성장법.md"
+      ],
+      "retrieved": [
+        "rag_docs/평범형_성장법.md",
+        "rag_docs/평범형_성장법.md",
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "scores": [
+        0.844,
+        0.8154,
+        0.7386
+      ],
+      "best_score": 0.844,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q11",
+      "category": "성향별",
+      "type": "positive",
+      "question": "관심에서 소외되기 쉬운 조용한 아이를 어떻게 챙기나요?",
+      "gold": [
+        "rag_docs/평범형_성장법.md"
+      ],
+      "retrieved": [
+        "rag_docs/평범형_성장법.md",
+        "rag_docs/위축형_적극성.md",
+        "rag_docs/위축형_적극성.md"
+      ],
+      "scores": [
+        0.7913,
+        0.7799,
+        0.7696
+      ],
+      "best_score": 0.7913,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q12",
+      "category": "성향별",
+      "type": "positive",
+      "question": "한 번 틀리면 바로 포기하려는 완벽주의 아이는 어떻게 다루나요?",
+      "gold": [
+        "rag_docs/완벽주의형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/완벽주의형_지도법.md",
+        "rag_docs/완벽주의형_지도법.md",
+        "rag_docs/위축형_적극성.md"
+      ],
+      "scores": [
+        0.9074,
+        0.8851,
+        0.8176
+      ],
+      "best_score": 0.9074,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q13",
+      "category": "성향별",
+      "type": "positive",
+      "question": "'완벽하게 안 되면 안 할래요'라고 버티는 아이에게 어떻게 하나요?",
+      "gold": [
+        "rag_docs/완벽주의형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/완벽주의형_지도법.md",
+        "rag_docs/완벽주의형_지도법.md",
+        "rag_docs/위축형_적극성.md"
+      ],
+      "scores": [
+        0.8803,
+        0.8318,
+        0.7595
+      ],
+      "best_score": 0.8803,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q14",
+      "category": "성향별",
+      "type": "positive",
+      "question": "실수한 뒤 지나치게 자책하는 아이를 어떻게 진정시키나요?",
+      "gold": [
+        "rag_docs/완벽주의형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/완벽주의형_지도법.md",
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "scores": [
+        0.8769,
+        0.807,
+        0.7839
+      ],
+      "best_score": 0.8769,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q15",
+      "category": "성향별",
+      "type": "positive",
+      "question": "설명 도중 금방 딴짓하는 산만한 아이를 어떻게 집중시키나요?",
+      "gold": [
+        "rag_docs/산만형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/산만형_지도법.md",
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/산만형_지도법.md"
+      ],
+      "scores": [
+        0.871,
+        0.8384,
+        0.8351
+      ],
+      "best_score": 0.871,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q16",
+      "category": "성향별",
+      "type": "positive",
+      "question": "규칙을 자꾸 까먹는 아이에게 규칙을 어떻게 기억시키나요?",
+      "gold": [
+        "rag_docs/산만형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/산만형_지도법.md",
+        "rag_docs/상황_순서기다리기.md",
+        "rag_docs/상황_집중이탈_대응.md"
+      ],
+      "scores": [
+        0.8612,
+        0.7515,
+        0.7455
+      ],
+      "best_score": 0.8612,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q17",
+      "category": "성향별",
+      "type": "positive",
+      "question": "혼자 앞서가며 친구를 기다리지 않는 리더 기질 아이는 어떻게 지도하나요?",
+      "gold": [
+        "rag_docs/리더형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/상황_집중이탈_대응.md"
+      ],
+      "scores": [
+        0.875,
+        0.7912,
+        0.7299
+      ],
+      "best_score": 0.875,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q18",
+      "category": "성향별",
+      "type": "positive",
+      "question": "친구들에게 지시만 하려는 주도적인 아이에게 양보를 어떻게 가르치나요?",
+      "gold": [
+        "rag_docs/리더형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "scores": [
+        0.8457,
+        0.7989,
+        0.7258
+      ],
+      "best_score": 0.8457,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q19",
+      "category": "성향별",
+      "type": "positive",
+      "question": "자신감 있는 아이의 자신감이 자만으로 흐르지 않게 하려면요?",
+      "gold": [
+        "rag_docs/리더형_지도법.md"
+      ],
+      "retrieved": [
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/승부욕형_훈육법.md"
+      ],
+      "scores": [
+        0.8678,
+        0.753,
+        0.7503
+      ],
+      "best_score": 0.8678,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q20",
+      "category": "성향별",
+      "type": "positive",
+      "question": "평범한 아이의 숨은 강점을 어떻게 찾아 칭찬해주나요?",
+      "gold": [
+        "rag_docs/평범형_성장법.md"
+      ],
+      "retrieved": [
+        "rag_docs/평범형_성장법.md",
+        "rag_docs/평범형_성장법.md",
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "scores": [
+        0.917,
+        0.8849,
+        0.7688
+      ],
+      "best_score": 0.917,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q21",
+      "category": "상황별",
+      "type": "positive",
+      "question": "아이가 같은 동작을 여러 번 실패해 지쳐 보일 때 가장 먼저 뭘 하나요?",
+      "gold": [
+        "rag_docs/상황_반복실패_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_반복실패_대응.md",
+        "rag_docs/상황_반복실패_대응.md",
+        "rag_docs/완벽주의형_지도법.md"
+      ],
+      "scores": [
+        0.8672,
+        0.8265,
+        0.7669
+      ],
+      "best_score": 0.8672,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q22",
+      "category": "상황별",
+      "type": "positive",
+      "question": "반복해서 실패한 아이가 '난 원래 못해'라고 할 때 어떻게 말해주나요?",
+      "gold": [
+        "rag_docs/상황_반복실패_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_반복실패_대응.md",
+        "rag_docs/상황_반복실패_대응.md",
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "scores": [
+        0.8883,
+        0.8261,
+        0.7845
+      ],
+      "best_score": 0.8883,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q23",
+      "category": "상황별",
+      "type": "positive",
+      "question": "수업 중 두 아이가 다투기 시작하면 강사가 먼저 할 일은요?",
+      "gold": [
+        "rag_docs/상황_또래갈등_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_또래갈등_대응.md",
+        "rag_docs/상황_또래갈등_대응.md",
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "scores": [
+        0.9346,
+        0.7823,
+        0.7512
+      ],
+      "best_score": 0.9346,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q24",
+      "category": "상황별",
+      "type": "positive",
+      "question": "한 아이가 다른 아이를 밀거나 때렸을 때 어떻게 대응하나요?",
+      "gold": [
+        "rag_docs/상황_또래갈등_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_또래갈등_대응.md",
+        "rag_docs/상황_또래갈등_대응.md",
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "scores": [
+        0.8789,
+        0.7933,
+        0.7345
+      ],
+      "best_score": 0.8789,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q25",
+      "category": "상황별",
+      "type": "positive",
+      "question": "수업 중반에 아이들 전체의 집중이 흐트러지면 어떻게 하나요?",
+      "gold": [
+        "rag_docs/상황_집중이탈_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/산만형_지도법.md",
+        "rag_docs/상황_집중이탈_대응.md"
+      ],
+      "scores": [
+        0.914,
+        0.8233,
+        0.8224
+      ],
+      "best_score": 0.914,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q26",
+      "category": "상황별",
+      "type": "positive",
+      "question": "특정 한 아이만 자꾸 집중을 놓칠 때 어떻게 다시 끌어들이나요?",
+      "gold": [
+        "rag_docs/상황_집중이탈_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/산만형_지도법.md"
+      ],
+      "scores": [
+        0.9254,
+        0.8158,
+        0.7841
+      ],
+      "best_score": 0.9254,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q27",
+      "category": "상황별",
+      "type": "positive",
+      "question": "자기 차례를 못 참고 새치기하려는 아이는 어떻게 지도하나요?",
+      "gold": [
+        "rag_docs/산만형_지도법.md",
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_순서기다리기.md",
+        "rag_docs/산만형_지도법.md",
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "scores": [
+        0.8924,
+        0.8095,
+        0.803
+      ],
+      "best_score": 0.8924,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q28",
+      "category": "상황별",
+      "type": "positive",
+      "question": "기다리는 동안 지루해하며 돌아다니는 아이에게는 무엇을 해주나요?",
+      "gold": [
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_순서기다리기.md",
+        "rag_docs/산만형_지도법.md",
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "scores": [
+        0.8458,
+        0.7793,
+        0.7729
+      ],
+      "best_score": 0.8458,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q29",
+      "category": "상황별",
+      "type": "positive",
+      "question": "또래 갈등을 겪은 두 아이를 어떻게 화해시키나요?",
+      "gold": [
+        "rag_docs/상황_또래갈등_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_또래갈등_대응.md",
+        "rag_docs/상황_또래갈등_대응.md",
+        "rag_docs/승부욕형_훈육법.md"
+      ],
+      "scores": [
+        0.8601,
+        0.8109,
+        0.7194
+      ],
+      "best_score": 0.8601,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q30",
+      "category": "상황별",
+      "type": "positive",
+      "question": "반복 실패하는 아이의 수업을 어떻게 마무리해야 하나요?",
+      "gold": [
+        "rag_docs/상황_반복실패_대응.md"
+      ],
+      "retrieved": [
+        "rag_docs/상황_반복실패_대응.md",
+        "rag_docs/상황_반복실패_대응.md",
+        "rag_docs/완벽주의형_지도법.md"
+      ],
+      "scores": [
+        0.9095,
+        0.8313,
+        0.7992
+      ],
+      "best_score": 0.9095,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q31",
+      "category": "성장목표",
+      "type": "positive",
+      "question": "아직 양발 모아 뛰기가 안 되는 아이에게 다음 목표를 어떻게 잡나요?",
+      "gold": [
+        "rag_docs/성장_줄넘기_수준별목표.md"
+      ],
+      "retrieved": [
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/평범형_성장법.md"
+      ],
+      "scores": [
+        0.9026,
+        0.8941,
+        0.7718
+      ],
+      "best_score": 0.9026,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q32",
+      "category": "성장목표",
+      "type": "positive",
+      "question": "양발 모아 뛰기를 몇 개 하는 아이의 다음 단계 목표는 무엇으로 잡나요?",
+      "gold": [
+        "rag_docs/성장_줄넘기_수준별목표.md"
+      ],
+      "retrieved": [
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/평범형_성장법.md"
+      ],
+      "scores": [
+        0.9093,
+        0.8624,
+        0.7337
+      ],
+      "best_score": 0.9093,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q33",
+      "category": "성장목표",
+      "type": "positive",
+      "question": "아이마다 수준이 제각각일 때 목표를 어떻게 개별화하나요?",
+      "gold": [
+        "rag_docs/성장_줄넘기_수준별목표.md"
+      ],
+      "retrieved": [
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/평범형_성장법.md"
+      ],
+      "scores": [
+        0.9377,
+        0.8395,
+        0.7829
+      ],
+      "best_score": 0.9377,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q34",
+      "category": "성장목표",
+      "type": "positive",
+      "question": "지난 회차 대비 아이의 성장을 어떻게 눈에 보이게 짚어주나요?",
+      "gold": [
+        "rag_docs/성장_줄넘기_수준별목표.md"
+      ],
+      "retrieved": [
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/평범형_성장법.md"
+      ],
+      "scores": [
+        0.8646,
+        0.7477,
+        0.7433
+      ],
+      "best_score": 0.8646,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q35",
+      "category": "성장목표",
+      "type": "positive",
+      "question": "목표를 달성한 아이의 다음 동기를 어떻게 유지시키나요?",
+      "gold": [
+        "rag_docs/성장_줄넘기_수준별목표.md"
+      ],
+      "retrieved": [
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/리더형_지도법.md",
+        "rag_docs/성장_줄넘기_수준별목표.md"
+      ],
+      "scores": [
+        0.9158,
+        0.7798,
+        0.7786
+      ],
+      "best_score": 0.9158,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q36",
+      "category": "학부모소통",
+      "type": "positive",
+      "question": "아이의 부족한 점을 학부모에게 어떻게 부드럽게 전하나요?",
+      "gold": [
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "retrieved": [
+        "rag_docs/학부모_전달규칙.md",
+        "rag_docs/학부모_전달규칙.md",
+        "rag_docs/학부모_민감정보_원칙.md"
+      ],
+      "scores": [
+        0.8956,
+        0.8289,
+        0.7702
+      ],
+      "best_score": 0.8956,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q37",
+      "category": "학부모소통",
+      "type": "positive",
+      "question": "학부모에게 피드백을 전할 때 지켜야 할 순서(구조)가 있나요?",
+      "gold": [
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "retrieved": [
+        "rag_docs/학부모_전달규칙.md",
+        "rag_docs/학부모_전달규칙.md",
+        "rag_docs/학부모_성취전달.md"
+      ],
+      "scores": [
+        0.921,
+        0.8162,
+        0.7854
+      ],
+      "best_score": 0.921,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q38",
+      "category": "학부모소통",
+      "type": "positive",
+      "question": "아이가 작은 성취를 했을 때 학부모에게 어떻게 전달하나요?",
+      "gold": [
+        "rag_docs/학부모_성취전달.md"
+      ],
+      "retrieved": [
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "scores": [
+        0.9106,
+        0.8231,
+        0.7633
+      ],
+      "best_score": 0.9106,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q39",
+      "category": "학부모소통",
+      "type": "positive",
+      "question": "특별한 변화가 없던 날에도 학부모에게 전할 내용을 어떻게 찾나요?",
+      "gold": [
+        "rag_docs/학부모_성취전달.md"
+      ],
+      "retrieved": [
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "scores": [
+        0.8595,
+        0.7423,
+        0.7155
+      ],
+      "best_score": 0.8595,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q40",
+      "category": "학부모소통",
+      "type": "positive",
+      "question": "아이 발달을 진단처럼 말하지 않으면서 전문기관 상담을 권하려면요?",
+      "gold": [
+        "rag_docs/학부모_민감정보_원칙.md"
+      ],
+      "retrieved": [
+        "rag_docs/학부모_민감정보_원칙.md",
+        "rag_docs/학부모_민감정보_원칙.md",
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "scores": [
+        0.8253,
+        0.796,
+        0.7495
+      ],
+      "best_score": 0.8253,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q41",
+      "category": "학부모소통",
+      "type": "positive",
+      "question": "강사용 내부 메모와 학부모용 전달 표현을 어떻게 구분하나요?",
+      "gold": [
+        "rag_docs/학부모_민감정보_원칙.md"
+      ],
+      "retrieved": [
+        "rag_docs/학부모_민감정보_원칙.md",
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "scores": [
+        0.9069,
+        0.7391,
+        0.7345
+      ],
+      "best_score": 0.9069,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q42",
+      "category": "학부모소통",
+      "type": "positive",
+      "question": "'산만하다' 같은 단정적 표현 대신 학부모에게 어떻게 말해야 하나요?",
+      "gold": [
+        "rag_docs/학부모_민감정보_원칙.md",
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "retrieved": [
+        "rag_docs/학부모_전달규칙.md",
+        "rag_docs/산만형_지도법.md",
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "scores": [
+        0.8786,
+        0.8248,
+        0.8008
+      ],
+      "best_score": 0.8786,
+      "low_relevance": false,
+      "hit@1": true,
+      "hit@3": true
+    },
+    {
+      "id": "q43",
+      "category": "부정",
+      "type": "negative",
+      "question": "줄넘기 줄의 적정 길이는 몇 센티미터인가요?",
+      "gold": [],
+      "retrieved": [
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/성장_줄넘기_수준별목표.md",
+        "rag_docs/상황_순서기다리기.md"
+      ],
+      "scores": [
+        0.7119,
+        0.6589,
+        0.6202
+      ],
+      "best_score": 0.7119,
+      "low_relevance": false,
+      "hit@1": null,
+      "hit@3": null
+    },
+    {
+      "id": "q44",
+      "category": "부정",
+      "type": "negative",
+      "question": "학원 수강료 환불 규정은 어떻게 되나요?",
+      "gold": [],
+      "retrieved": [
+        "rag_docs/상황_반복실패_대응.md",
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/학부모_전달규칙.md"
+      ],
+      "scores": [
+        0.6232,
+        0.609,
+        0.601
+      ],
+      "best_score": 0.6232,
+      "low_relevance": true,
+      "hit@1": null,
+      "hit@3": null
+    },
+    {
+      "id": "q45",
+      "category": "부정",
+      "type": "negative",
+      "question": "오늘 서울 날씨와 미세먼지 농도는 어떤가요?",
+      "gold": [],
+      "retrieved": [
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/학부모_민감정보_원칙.md"
+      ],
+      "scores": [
+        0.5539,
+        0.5373,
+        0.5293
+      ],
+      "best_score": 0.5539,
+      "low_relevance": true,
+      "hit@1": null,
+      "hit@3": null
+    },
+    {
+      "id": "q46",
+      "category": "부정",
+      "type": "negative",
+      "question": "아이 생일 파티 케이크는 어디서 주문하면 좋나요?",
+      "gold": [],
+      "retrieved": [
+        "rag_docs/위축형_칭찬법.md",
+        "rag_docs/학부모_성취전달.md",
+        "rag_docs/위축형_칭찬법.md"
+      ],
+      "scores": [
+        0.5987,
+        0.5984,
+        0.5901
+      ],
+      "best_score": 0.5987,
+      "low_relevance": true,
+      "hit@1": null,
+      "hit@3": null
+    },
+    {
+      "id": "q47",
+      "category": "부정",
+      "type": "negative",
+      "question": "체육관 냉난방기 필터 교체 주기는 얼마인가요?",
+      "gold": [],
+      "retrieved": [
+        "rag_docs/상황_집중이탈_대응.md",
+        "rag_docs/상황_또래갈등_대응.md",
+        "rag_docs/성장_줄넘기_수준별목표.md"
+      ],
+      "scores": [
+        0.6081,
+        0.576,
+        0.5706
+      ],
+      "best_score": 0.6081,
+      "low_relevance": true,
+      "hit@1": null,
+      "hit@3": null
+    },
+    {
+      "id": "q48",
+      "category": "부정",
+      "type": "negative",
+      "question": "강사 4대 보험 가입 절차가 궁금합니다.",
+      "gold": [],
+      "retrieved": [
+        "rag_docs/학부모_민감정보_원칙.md",
+        "rag_docs/학부모_민감정보_원칙.md",
+        "rag_docs/평범형_성장법.md"
+      ],
+      "scores": [
+        0.6518,
+        0.6403,
+        0.6199
+      ],
+      "best_score": 0.6518,
+      "low_relevance": true,
+      "hit@1": null,
+      "hit@3": null
+    }
+  ]
+}

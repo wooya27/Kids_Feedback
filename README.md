@@ -90,7 +90,10 @@ docker compose exec api python evaluate.py                    # API 35회 지표
 
 ## 8. 테스트 · 평가
 - **자동 테스트(22개, 키 불필요):** 생성/저장, 검증 실패 미저장, 404, RAG Top-3·근거없음, 검수 수정본·전달차단·상태전이, 학생 격리, n8n 매핑. → `python -m pytest`
-- **평가(실행 후 수치 기재):** RAG Hit@k(`docs/rag_evaluation.md`), API 35회(`metrics.json`), RAG 전/후 품질(`docs/rag_quality_comparison.md`).
+- **평가:**
+  - RAG 검색(2026-11-12 실측, 48문항): 긍정 42문항 **Hit@1 100% · Hit@3 100%**, 부정 안전처리 **83.3%**(5/6).
+    ⚠️ 문서·질문을 동일인이 작성한 **자체 평가라 과대평가 가능** — 반드시 이 한계와 함께 해석(상세·실패사례: `docs/rag_evaluation.md`).
+  - API 35회(`metrics.json`)·RAG 전/후 품질(`docs/rag_quality_comparison.md`)은 실행 후 수치 기재(측정 예정).
 
 ## 9. 한계 (정직하게)
 - 지도 문서는 **전문가 검증 전 자체 작성 가이드**. 공식 지도 규정 아님.
